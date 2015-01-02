@@ -35,7 +35,7 @@
 
     <service name="SimpleMBeans Service"
              description="Service to expose the PoolCounter info."
-             discovery="org.rhq.plugins.jmx.MBeanResourceComponent"
+             discovery="org.rhq.plugins.jmx.MBeanResourceDiscoveryComponent"
              class="org.rhq.plugins.jmx.MBeanResourceComponent">
 
         <runs-inside>
