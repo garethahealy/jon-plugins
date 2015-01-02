@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<plugin name="CustomJmx"
+        displayName="Custom JMX Plugin"
+        version="1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="urn:xmlns:rhq-plugin"
+        xmlns:c="urn:xmlns:rhq-configuration">
+
+   <depends plugin="JMX" useClasses="true"/>
+   <depends plugin="JBossAS"/>
+
+   <service name="First Custom Service"
+            description="Our first MBean custom service whose 'id' is static"
+            discovery="org.rhq.plugins.jmx.MBeanResourceDiscoveryComponent"
+            class="org.rhq.plugins.jmx.MBeanResourceComponent">
+
+      <runs-inside>
+         <parent-resource-type name="JMX Server" plugin="JMX"/>
+         <parent-resource-type name="JBossAS Server" plugin="JBossAS"/>
+      </runs-inside>
+
+      <plugin-configuration>
+         <c:simple-property name="objectName" readOnly="true" default="jmxapp:type=MyJmxObject,id=static"/>
+      </plugin-configuration>
+
+      <operation name="toUppercase"
+                 displayName="String To Uppercase"
+                 description="Converts the given string to all uppercase.">
+         <parameters>
+            <c:simple-property name="p1" type="string" required="true"/>
+         </parameters>
+         <results>
+            <c:simple-property name="operationResult" type="string"/>
+         </results>
+      </operation>
+
+      <metric property="RandomNumber"
+              displayName="Random Floating Point Number"
+              defaultOn="true"
+              displayType="summary"
+              defaultInterval="30000"
+              description="Emits a random number between 0.0 and 1.0"/>
+
+   </service>
+
+   <service name="Second Custom Service"
+            description="Our second MBean custom service that has a code associated with it."
+            discovery="org.rhq.plugins.jmx.MBeanResourceDiscoveryComponent"
+            class="org.rhq.plugins.jmx.MBeanResourceComponent">
+
+      <runs-inside>
+         <parent-resource-type name="JMX Server" plugin="JMX"/>
+         <parent-resource-type name="JBossAS Server" plugin="JBossAS"/>
+      </runs-inside>
+
+      <plugin-configuration>
+         <c:simple-property name="objectName" readOnly="true" default="jmxapp:type=MyJmxObject,code=%code%"/>
+         <c:simple-property name="nameTemplate" default="My JMX Object #{code}"/>
+         <c:simple-property name="descriptionTemplate" default="A JMX Object with a code of {code}"/>
+         <c:simple-property name="code" type="integer" description="The code of the JMX Object"/>
+      </plugin-configuration>
+
+      <operation name="toUppercase"
+                 displayName="String To Uppercase"
+                 description="Converts the given string to all uppercase.">
+         <parameters>
+            <c:simple-property name="p1" type="string" required="true"/>
+         </parameters>
+         <results>
+            <c:simple-property name="operationResult" type="string"/>
+         </results>
+      </operation>
+
+      <metric property="RandomNumber"
+              displayName="Random Floating Point Number"
+              defaultOn="true"
+              displayType="summary"
+              defaultInterval="30000"
+              description="Emits a random number between 0.0 and 1.0"/>
+
+   </service>
+
+</plugin>

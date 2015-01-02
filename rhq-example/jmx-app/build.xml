@@ -1,0 +1,23 @@
+<project name="JMX Test App" default="package" basedir=".">
+
+    <property name="src.java.dir" value="src"/>
+    <property name="build.dir"    value="build"/>
+
+    <target name="clean" description="Clean the build directory">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.java.dir}" destdir="${build.dir}"/>
+    </target>
+
+    <target name="package" depends="compile" description="Build the executable jar">
+       <delete file="${build.dir}/jmxapp.jar"/>
+       <jar basedir="${build.dir}" destfile="${build.dir}/jmxapp.jar">
+          <manifest>
+             <attribute name="Main-Class" value="JmxApp"/>
+          </manifest>
+       </jar>
+    </target>
+</project>
