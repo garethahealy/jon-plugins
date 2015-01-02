@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  #%L
+  simple-mbeans
+  %%
+  Copyright (C) 2013 - 2015 Gareth Healy
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+
+
+<plugin name="SimpleMBeans"
+        displayName="Simple MBeans Plugin"
+        version="1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="urn:xmlns:rhq-plugin"
+        xmlns:c="urn:xmlns:rhq-configuration"
+        xsi:schemaLocation="urn:xmlns:rhq-plugin
+          http://git.fedorahosted.org/cgit/rhq/rhq.git/plain/modules/core/client-api/src/main/resources/rhq-plugin.xsd
+          urn:xmlns:rhq-configuration
+          http://git.fedorahosted.org/cgit/rhq/rhq.git/plain/modules/core/client-api/src/main/resources/rhq-configuration.xsd">
+
+    <depends plugin="JMX" useClasses="true"/>
+
+    <service name="SimpleMBeans Service"
+             description="Service to expose the PoolCounter info."
+             discovery="org.rhq.plugins.jmx.MBeanResourceComponent"
+             class="org.rhq.plugins.jmx.MBeanResourceComponent">
+
+        <runs-inside>
+            <parent-resource-type name="JMX Server" plugin="JMX"/>
+            <parent-resource-type name="Servicemix3 Server" plugin="Servicemix3"/>
+            <parent-resource-type name="Servicemix4 Server" plugin="Servicemix4"/>
+            <parent-resource-type name="Fabric Container" plugin="Fabric"/>
+            <parent-resource-type name="JBoss Fuse Container" plugin="JBossFuse"/>
+            <parent-resource-type name="JBossAS Server" plugin="JBossAS"/>
+        </runs-inside>
+
+        <plugin-configuration>
+            <c:simple-property name="objectName" readOnly="true"
+                               default="com.garethahealy:beans=whiteboard-mbeans-expose-context,type=beans,name=PoolCounter"/>
+        </plugin-configuration>
+
+        <operation name="poolCount"
+                   displayName="Pool count"
+                   description="Returns the current pool count.">
+            <results>
+                <c:simple-property name="operationResult" type="integer"/>
+            </results>
+        </operation>
+    </service>
+
+</plugin>
