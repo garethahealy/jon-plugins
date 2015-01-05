@@ -20,8 +20,8 @@
   -->
 
 
-<plugin name="SimpleMBeans"
-        displayName="Simple MBeans Plugin"
+<plugin name="PoolCounterMBeans"
+        displayName="PoolCounter MBeans Plugin"
         version="1.0"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="urn:xmlns:rhq-plugin"
@@ -33,7 +33,7 @@
 
     <depends plugin="JMX" useClasses="true"/>
 
-    <service name="SimpleMBeans Service"
+    <service name="PoolCounterMBeans Service"
              description="Service to expose the PoolCounter info."
              discovery="org.rhq.plugins.jmx.MBeanResourceDiscoveryComponent"
              class="org.rhq.plugins.jmx.MBeanResourceComponent">

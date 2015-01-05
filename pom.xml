@@ -24,7 +24,7 @@
 
     <modules>
         <module>plugin-parent</module>
-        <module>simple-mbeans</module>
+        <module>poolcounter-mbeans</module>
     </modules>
 
     <properties>

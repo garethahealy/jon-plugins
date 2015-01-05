@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../plugin-parent</relativePath>
     </parent>
-    <artifactId>simple-mbeans</artifactId>
+    <artifactId>poolcounter-mbeans</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
 
