@@ -25,6 +25,7 @@
     <modules>
         <module>plugin-parent</module>
         <module>poolcounter-mbeans</module>
+        <module>commonspool2-mbeans</module>
     </modules>
 
     <properties>
