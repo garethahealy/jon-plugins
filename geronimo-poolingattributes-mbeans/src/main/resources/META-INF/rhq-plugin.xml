@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  #%L
+  geronimo-poolingattributes-mbeans
+  %%
+  Copyright (C) 2013 - 2015 Gareth Healy
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+
+<plugin name="GeronimoPoolingAttributesMBeans"
+        displayName="Apache Commons Pool2 MBeans Plugin"
+        version="1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="urn:xmlns:rhq-plugin"
+        xmlns:c="urn:xmlns:rhq-configuration"
+        xsi:schemaLocation="urn:xmlns:rhq-plugin
+          http://git.fedorahosted.org/cgit/rhq/rhq.git/plain/modules/core/client-api/src/main/resources/rhq-plugin.xsd
+          urn:xmlns:rhq-configuration
+          http://git.fedorahosted.org/cgit/rhq/rhq.git/plain/modules/core/client-api/src/main/resources/rhq-configuration.xsd">
+
+    <depends plugin="JMX" useClasses="true"/>
+
+    <service name="Geronimo PoolingAttributes MBeans Service"
+             description="Service to expose the pool info."
+             discovery="org.rhq.plugins.jmx.MBeanResourceDiscoveryComponent"
+             class="org.rhq.plugins.jmx.MBeanResourceComponent">
+
+        <runs-inside>
+            <parent-resource-type name="JMX Server" plugin="JMX"/>
+            <parent-resource-type name="Servicemix3 Server" plugin="Servicemix3"/>
+            <parent-resource-type name="Servicemix4 Server" plugin="Servicemix4"/>
+            <parent-resource-type name="Fabric Container" plugin="Fabric"/>
+            <parent-resource-type name="JBoss Fuse Container" plugin="JBossFuse"/>
+            <parent-resource-type name="JBossAS Server" plugin="JBossAS"/>
+        </runs-inside>
+
+        <plugin-configuration>
+            <c:simple-property name="objectName" readOnly="true"
+                               default="org.apache.geronimo.connector:type=PoolingAttributes,name=pool"/>
+        </plugin-configuration>
+
+        <metric property="ConnectionCount"
+                displayName="Active connections"
+                defaultOn="true"
+                displayType="summary"
+                defaultInterval="30000"
+                description="Returns the total number of instances currently borrowed from this pool but not yet returned."/>
+
+        <metric property="IdleConnectionCount"
+                displayName="Idle connections"
+                defaultOn="true"
+                displayType="summary"
+                defaultInterval="30000"
+                description="The number of instances currently idle in this pool."/>
+
+        <metric property="PartitionMinSize"
+                displayName="Minimum connections per Partition"
+                defaultOn="true"
+                displayType="summary"
+                defaultInterval="300000"
+                description="Returns the target for the minimum number of objects to maintain in the pool."/>
+
+        <metric property="PartitionMaxSize"
+                displayName="Maximum connections per Partition"
+                defaultOn="true"
+                displayType="summary"
+                defaultInterval="300000"
+                description="Returns the cap on the number of instances in the pool."/>
+
+        <metric property="PartitionCount"
+                displayName="Partition count"
+                defaultOn="true"
+                displayType="summary"
+                defaultInterval="300000"
+                description="The number of partitions that the pool supports."/>
+
+    </service>
+
+</plugin>

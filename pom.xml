@@ -26,6 +26,7 @@
         <module>plugin-parent</module>
         <module>poolcounter-mbeans</module>
         <module>commonspool2-mbeans</module>
+        <module>geronimo-poolingattributes-mbeans</module>     
     </modules>
 
     <properties>
