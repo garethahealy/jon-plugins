@@ -48,8 +48,10 @@
         </runs-inside>
 
         <plugin-configuration>
-            <c:simple-property name="objectName" readOnly="true"
-                               default="org.apache.commons.pool2:type=GenericObjectPool,name=pool"/>
+            <c:simple-property name="objectName" readOnly="true" default="org.apache.commons.pool2:type=%pooltype%,name=%poolname%"/>
+            <c:simple-property name="nameTemplate" default="commons.pool2: #{pooltype} #{poolname}"/>
+            <c:simple-property name="pooltype" type="string" description="The type of the JMX Object"/>
+            <c:simple-property name="poolname" type="string" description="The name of the JMX Object"/>
         </plugin-configuration>
 
         <metric property="NumActive"

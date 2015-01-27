@@ -47,8 +47,10 @@
         </runs-inside>
 
         <plugin-configuration>
-            <c:simple-property name="objectName" readOnly="true"
-                               default="org.apache.geronimo.connector:type=PoolingAttributes,name=pool"/>
+            <c:simple-property name="objectName" readOnly="true" default="org.apache.geronimo.connector:type=%pooltype%,name=%poolname%"/>
+            <c:simple-property name="nameTemplate" default="geronimo.connector: #{pooltype} #{poolname}"/>
+            <c:simple-property name="pooltype" type="string" description="The type of the JMX Object"/>
+            <c:simple-property name="poolname" type="string" description="The name of the JMX Object"/>
         </plugin-configuration>
 
         <metric property="ConnectionCount"
