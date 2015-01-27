@@ -13,4 +13,44 @@
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.rhq.maven.plugins</groupId>
+                <artifactId>rhq-agent-plugin-plugin</artifactId>
+                <!-- Tell Maven that this plugin will extend the standard lifecycle and packaging -->
+                <!-- Without this the build fails to recognize the custom packaging -->
+                <extensions>true</extensions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Maven-Version>${maven-version}</Maven-Version>
+                            <Java-Version>${java.version}</Java-Version>
+                            <Java-Vendor>${java.vendor}</Java-Vendor>
+                            <Os-Name>${os.name}</Os-Name>
+                            <Os-Arch>${os.arch}</Os-Arch>
+                            <Os-Version>${os.version}</Os-Version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>validate</goal>
+                        </goals>
+                        <configuration>
+                            <rhqVersion>${rhq-version}</rhqVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

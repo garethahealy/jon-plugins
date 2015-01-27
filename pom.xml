@@ -26,21 +26,5 @@
             <groupId>org.rhq</groupId>
             <artifactId>rhq-jmx-plugin</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.hyperic</groupId>
-            <artifactId>sigar</artifactId>
-            <version>1.6.5.132</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hyperic</groupId>
-            <artifactId>sigar-dist</artifactId>
-            <version>1.6.5.132</version>
-            <type>zip</type>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
-
-
 </project>

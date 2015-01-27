@@ -16,26 +16,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack-dependencies</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includes>**/sigar-bin/lib/*</includes>
-                            <excludes>**/sigar-bin/lib/*jar</excludes>
-                            <includeGroupIds>org.hyperic</includeGroupIds>
-                            <includeArtifactIds>sigar-dist</includeArtifactIds>
-                            <outputDirectory>${project.build.directory}/depends</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.rhq.maven.plugins</groupId>
                 <artifactId>rhq-agent-plugin-plugin</artifactId>
                 <!-- Tell Maven that this plugin will extend the standard lifecycle and packaging -->
