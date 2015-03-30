@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.garethahealy</groupId>
         <artifactId>plugins-parent</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
         <relativePath>../poms/plugins-parent</relativePath>
     </parent>
     <groupId>com.garethahealy.jon-plugins</groupId>
