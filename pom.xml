@@ -21,6 +21,10 @@
         <url>https://github.com/garethahealy/jon-plugins/tree/master</url>
     </scm>
 
+    <properties>
+        <rhq-version>4.12.0</rhq-version>
+    </properties>
+
     <modules>
         <module>poolcounter-mbeans</module>
         <module>commonspool2-mbeans</module>
