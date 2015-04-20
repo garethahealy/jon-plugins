@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.garethahealy</groupId>
-        <artifactId>plugins-parent</artifactId>
-        <version>1.0.4</version>
-        <relativePath>../poms/plugins-parent</relativePath>
+        <artifactId>commons-parent</artifactId>
+        <version>1.0.5-SNAPSHOT</version>
+        <relativePath>../poms/commons-parent</relativePath>
     </parent>
     <groupId>com.garethahealy.jon-plugins</groupId>
     <artifactId>jon-plugins-parent</artifactId>
