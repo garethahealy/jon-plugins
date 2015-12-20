@@ -11,7 +11,7 @@
     </parent>
     <artifactId>commonspool2-mbeans</artifactId>
     <packaging>jar</packaging>
-    <name>${project.artifactId}</name>
+    <name>GarethHealy :: JBoss ON :: Plugins :: Apache Commons Pool2</name>
 
     <build>
         <plugins>

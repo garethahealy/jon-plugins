@@ -11,7 +11,7 @@
     </parent>
     <artifactId>geronimo-poolingattributes-mbeans</artifactId>
     <packaging>jar</packaging>
-    <name>${project.artifactId}</name>
+    <name>GarethHealy :: JBoss ON :: Plugins :: Geronimo Pooling Attributes</name>
 
     <build>
         <plugins>

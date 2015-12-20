@@ -11,7 +11,7 @@
     </parent>
     <artifactId>poolcounter-mbeans</artifactId>
     <packaging>jar</packaging>
-    <name>${project.artifactId}</name>
+    <name>GarethHealy :: JBoss ON :: Plugins :: PoolCounter</name>
 
     <build>
         <plugins>
