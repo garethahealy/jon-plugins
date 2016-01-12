@@ -52,6 +52,7 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
+                <!--
                 <executions>
                     <execution>
                         <id>validate</id>
@@ -64,6 +65,7 @@
                         </configuration>
                     </execution>
                 </executions>
+                -->
             </plugin>
         </plugins>
     </build>

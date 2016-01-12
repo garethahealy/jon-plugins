@@ -20,6 +20,7 @@
 package com.garethahealy.jon.plugins.server.gah.alert.defintions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.ActiveMQBrokerClientConnectorNotRunningTemplate;
@@ -68,47 +69,49 @@ public final class InjectedTemplatesList {
     public static final List<InjectedTemplate> INJECTED_TEMPLATES;
 
     static {
-        INJECTED_TEMPLATES = new ArrayList<InjectedTemplate>();
-        INJECTED_TEMPLATES.add(new ActiveMQBrokerClientConnectorNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQBrokerConnectorNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQBrokerNetworkConnectorNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQBrokerNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQBrokerTotalMessagesHighTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQQueueConsumerCountChangedTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQQueueDeenqueueHighTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQQueueEnqueueHighTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQQueueSizeHighTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQTopicConsumerCountChangedTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQTopicDeenqueueHighTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQTopicEnqueueHighTemplate());
-        INJECTED_TEMPLATES.add(new ActiveMQTopicSizeHighTemplate());
-        INJECTED_TEMPLATES.add(new CamelContextNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new CamelEndpointNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new CamelRouteNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new CPUCoreNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new CXFBusNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new CXFClientOperationCounterAverageResponseTimeTemplate());
-        INJECTED_TEMPLATES.add(new CXFClientServiceCounterAverageResponseTimeTemplate());
-        INJECTED_TEMPLATES.add(new CXFEndpointNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new CXFServerOperationCounterResponseTimeTemplate());
-        INJECTED_TEMPLATES.add(new CXFServerServiceCounterResponseTimeTemplate());
-        INJECTED_TEMPLATES.add(new ExchangeFailuresTemplate());
-        INJECTED_TEMPLATES.add(new ExchangeMeanProcessingTimeHighTemplate());
-        INJECTED_TEMPLATES.add(new FabricContainerNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new FileSystemDiskReadHighTemplate());
-        INJECTED_TEMPLATES.add(new FileSystemDiskWriteHighTemplate());
-        INJECTED_TEMPLATES.add(new FileSystemNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new FileSystemSpaceLowTemplate());
-        INJECTED_TEMPLATES.add(new JVMDeadlockedThreadsTemplate());
-        INJECTED_TEMPLATES.add(new JVMGarbageCollectionHighTemplate());
-        INJECTED_TEMPLATES.add(new LinuxLoadHighTemplate());
-        INJECTED_TEMPLATES.add(new LinuxMemoryLowTemplate());
-        INJECTED_TEMPLATES.add(new LinuxVmNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new NetworkAdapterBytesReceivedHighTemplate());
-        INJECTED_TEMPLATES.add(new NetworkAdapterBytesTransmittedHighTemplate());
-        INJECTED_TEMPLATES.add(new NetworkAdapterNotRunningTemplate());
-        INJECTED_TEMPLATES.add(new NetworkAdapterReceiveTransmitErrorsDroppedHighTemplate());
-        INJECTED_TEMPLATES.add(new PostgresNotRunningTemplate());
+        List<InjectedTemplate> temp = new ArrayList<InjectedTemplate>();
+        temp.add(new ActiveMQBrokerClientConnectorNotRunningTemplate());
+        temp.add(new ActiveMQBrokerConnectorNotRunningTemplate());
+        temp.add(new ActiveMQBrokerNetworkConnectorNotRunningTemplate());
+        temp.add(new ActiveMQBrokerNotRunningTemplate());
+        temp.add(new ActiveMQBrokerTotalMessagesHighTemplate());
+        temp.add(new ActiveMQQueueConsumerCountChangedTemplate());
+        temp.add(new ActiveMQQueueDeenqueueHighTemplate());
+        temp.add(new ActiveMQQueueEnqueueHighTemplate());
+        temp.add(new ActiveMQQueueSizeHighTemplate());
+        temp.add(new ActiveMQTopicConsumerCountChangedTemplate());
+        temp.add(new ActiveMQTopicDeenqueueHighTemplate());
+        temp.add(new ActiveMQTopicEnqueueHighTemplate());
+        temp.add(new ActiveMQTopicSizeHighTemplate());
+        temp.add(new CamelContextNotRunningTemplate());
+        temp.add(new CamelEndpointNotRunningTemplate());
+        temp.add(new CamelRouteNotRunningTemplate());
+        temp.add(new CPUCoreNotRunningTemplate());
+        temp.add(new CXFBusNotRunningTemplate());
+        temp.add(new CXFClientOperationCounterAverageResponseTimeTemplate());
+        temp.add(new CXFClientServiceCounterAverageResponseTimeTemplate());
+        temp.add(new CXFEndpointNotRunningTemplate());
+        temp.add(new CXFServerOperationCounterResponseTimeTemplate());
+        temp.add(new CXFServerServiceCounterResponseTimeTemplate());
+        temp.add(new ExchangeFailuresTemplate());
+        temp.add(new ExchangeMeanProcessingTimeHighTemplate());
+        temp.add(new FabricContainerNotRunningTemplate());
+        temp.add(new FileSystemDiskReadHighTemplate());
+        temp.add(new FileSystemDiskWriteHighTemplate());
+        temp.add(new FileSystemNotRunningTemplate());
+        temp.add(new FileSystemSpaceLowTemplate());
+        temp.add(new JVMDeadlockedThreadsTemplate());
+        temp.add(new JVMGarbageCollectionHighTemplate());
+        temp.add(new LinuxLoadHighTemplate());
+        temp.add(new LinuxMemoryLowTemplate());
+        temp.add(new LinuxVmNotRunningTemplate());
+        temp.add(new NetworkAdapterBytesReceivedHighTemplate());
+        temp.add(new NetworkAdapterBytesTransmittedHighTemplate());
+        temp.add(new NetworkAdapterNotRunningTemplate());
+        temp.add(new NetworkAdapterReceiveTransmitErrorsDroppedHighTemplate());
+        temp.add(new PostgresNotRunningTemplate());
+
+        INJECTED_TEMPLATES = Collections.unmodifiableList(temp);
     }
 
     private InjectedTemplatesList() {
