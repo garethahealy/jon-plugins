@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.garethahealy.jon-plugins</groupId>
+        <artifactId>jon-plugins-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+    <artifactId>gah-alert-definitions</artifactId>
+    <packaging>jar</packaging>
+    <name>GarethHealy :: JBoss ON :: Plugins :: GAH Alert Definitions</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.rhq</groupId>
+            <artifactId>rhq-enterprise-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.rhq</groupId>
+            <artifactId>rhq-core-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.rhq</groupId>
+            <artifactId>rhq-core-client-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.rhq.maven.plugins</groupId>
+                <artifactId>rhq-agent-plugin-plugin</artifactId>
+                <!-- Tell Maven that this plugin will extend the standard lifecycle and packaging -->
+                <!-- Without this the build fails to recognize the custom packaging -->
+                <extensions>true</extensions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Maven-Version>${maven-version}</Maven-Version>
+                            <Java-Version>${java.version}</Java-Version>
+                            <Java-Vendor>${java.vendor}</Java-Vendor>
+                            <Os-Name>${os.name}</Os-Name>
+                            <Os-Arch>${os.arch}</Os-Arch>
+                            <Os-Version>${os.version}</Os-Version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>validate</goal>
+                        </goals>
+                        <configuration>
+                            <rhqVersion>${rhq-version}</rhqVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

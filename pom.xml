@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.garethahealy</groupId>
-        <artifactId>commons-parent</artifactId>
-        <version>1.1.0</version>
+        <artifactId>plugins-parent</artifactId>
+        <version>1.1.1-SNAPSHOT</version>
         <relativePath/>
     </parent>
     <groupId>com.garethahealy.jon-plugins</groupId>
@@ -14,6 +14,10 @@
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <name>GarethHealy :: JBoss ON :: Plugins</name>
+
+    <properties>
+        <rhq-version>4.13.0</rhq-version>
+    </properties>
 
     <scm>
         <connection>scm:git:https://github.com/garethahealy/jon-plugins/tree/master</connection>
@@ -25,7 +29,38 @@
         <module>poolcounter-mbeans</module>
         <module>commonspool2-mbeans</module>
         <module>geronimo-poolingattributes-mbeans</module>
+        <module>gah-alert-definitions</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.garethahealy</groupId>
+                <artifactId>commons-bom</artifactId>
+                <version>${commons-bom-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.rhq</groupId>
+                <artifactId>rhq-core-domain</artifactId>
+                <version>${rhq-version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.rhq</groupId>
+                <artifactId>rhq-core-client-api</artifactId>
+                <version>${rhq-version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.rhq</groupId>
+                <artifactId>rhq-enterprise-server</artifactId>
+                <version>${rhq-version}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
