@@ -19,8 +19,11 @@
  */
 package com.garethahealy.jon.plugins.server.gah.alert.defintions;
 
-import org.rhq.core.domain.alert.AlertCondition;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.rhq.core.domain.alert.AlertDefinition;
+import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 import org.rhq.enterprise.server.alert.AlertTemplateManagerLocal;
 import org.rhq.enterprise.server.auth.SubjectManagerLocal;
@@ -62,16 +65,22 @@ public class InjectedTemplate {
         return description;
     }
 
+    protected Map<String, MeasurementDefinition> getMetricDefinitionsMap(ResourceType resourceType) {
+        Map<String, MeasurementDefinition> map = new HashMap<String, MeasurementDefinition>();
+        for (MeasurementDefinition value : resourceType.getMetricDefinitions()) {
+            map.put(value.getName(), value);
+        }
+
+        return map;
+    }
+
     public int inject(ResourceType resourceType) {
         throw new IllegalArgumentException("Not implemented");
     }
 
-    protected int create(ResourceType resourceType, AlertDefinition alertDefinition, AlertCondition alertCondition) {
+    protected int create(ResourceType resourceType, AlertDefinition alertDefinition) {
         AlertTemplateManagerLocal alertTemplateManager = LookupUtil.getAlertTemplateManager();
         SubjectManagerLocal subjectManager = LookupUtil.getSubjectManager();
-
-        assert null != alertCondition.getMeasurementDefinition() : "Did not find expected measurement definition [Calculated.HeapUsagePercentage] for " + resourceType;
-        alertDefinition.addCondition(alertCondition);
 
         int newTemplateId = alertTemplateManager.createAlertTemplate(subjectManager.getOverlord(), alertDefinition, resourceType.getId());
         return newTemplateId;

@@ -135,7 +135,6 @@ public class GAHAlertDefinitionServerPluginComponent implements ServerPluginComp
     }
 
     private AlertDefinition injectAlertDef(InjectedTemplate injectedAlertDef, boolean replaceIfExists) {
-
         AlertDefinition result = null;
         ResourceTypeManagerLocal typeManager = LookupUtil.getResourceTypeManager();
         AlertDefinitionManagerLocal alertDefManager = LookupUtil.getAlertDefinitionManager();
@@ -145,8 +144,8 @@ public class GAHAlertDefinitionServerPluginComponent implements ServerPluginComp
         rtc.addFilterPluginName(injectedAlertDef.getPluginName());
         rtc.addFilterName(injectedAlertDef.getResourceTypeName());
         rtc.fetchMetricDefinitions(true);
-        List<ResourceType> resourceTypes = typeManager.findResourceTypesByCriteria(subjectManager.getOverlord(), rtc);
 
+        List<ResourceType> resourceTypes = typeManager.findResourceTypesByCriteria(subjectManager.getOverlord(), rtc);
         if (resourceTypes.isEmpty()) {
             return result;
         }
@@ -157,8 +156,8 @@ public class GAHAlertDefinitionServerPluginComponent implements ServerPluginComp
         AlertDefinitionCriteria adc = new AlertDefinitionCriteria();
         adc.addFilterName(injectedAlertDef.getName());
         adc.addFilterAlertTemplateResourceTypeId(resourceType.getId());
-        List<AlertDefinition> alertDefs = alertDefManager.findAlertDefinitionsByCriteria(subjectManager.getOverlord(), adc);
 
+        List<AlertDefinition> alertDefs = alertDefManager.findAlertDefinitionsByCriteria(subjectManager.getOverlord(), adc);
         if (!alertDefs.isEmpty()) {
             assert 1 == alertDefs.size() : "Found more than 1 existing alert def!";
 
