@@ -29,7 +29,7 @@ import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.active
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.broker.ActiveMQBrokerNotRunningTemplate;
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.broker.ActiveMQBrokerTotalMessagesHighTemplate;
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.queue.ActiveMQQueueConsumerCountChangedTemplate;
-import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.queue.ActiveMQQueueDeenqueueHighTemplate;
+import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.queue.ActiveMQQueueDequeueLowTemplate;
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.queue.ActiveMQQueueEnqueueHighTemplate;
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.queue.ActiveMQQueueSizeHighTemplate;
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.topic.ActiveMQTopicConsumerCountChangedTemplate;
@@ -76,7 +76,7 @@ public final class InjectedTemplatesList {
         temp.add(new ActiveMQBrokerNotRunningTemplate());
         temp.add(new ActiveMQBrokerTotalMessagesHighTemplate());
         temp.add(new ActiveMQQueueConsumerCountChangedTemplate());
-        temp.add(new ActiveMQQueueDeenqueueHighTemplate());
+        temp.add(new ActiveMQQueueDequeueLowTemplate());
         temp.add(new ActiveMQQueueEnqueueHighTemplate());
         temp.add(new ActiveMQQueueSizeHighTemplate());
         temp.add(new ActiveMQTopicConsumerCountChangedTemplate());

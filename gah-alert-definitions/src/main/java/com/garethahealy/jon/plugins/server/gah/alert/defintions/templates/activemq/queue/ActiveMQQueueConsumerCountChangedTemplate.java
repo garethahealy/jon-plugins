@@ -19,19 +19,58 @@
  */
 package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.queue;
 
+import java.util.Map;
+
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 
+import org.rhq.core.domain.alert.AlertCondition;
+import org.rhq.core.domain.alert.AlertConditionCategory;
+import org.rhq.core.domain.alert.AlertDefinition;
+import org.rhq.core.domain.alert.AlertPriority;
+import org.rhq.core.domain.alert.BooleanExpression;
+import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 
 public class ActiveMQQueueConsumerCountChangedTemplate extends InjectedTemplate {
 
+    private static final String CONSUMER_COUNT_NAME = "Consumer Count";
+    private static final String CONSUMER_COUNT = "ConsumerCount";
+
     public ActiveMQQueueConsumerCountChangedTemplate() {
-        super("Platforms", "Linux", "LinuxVmNotRunning", "The linux VM is not running");
+        super("ActiveMQ", "Queue", "ActiveMQQueueConsumerCountChanged", "A activemq queue consumer count has changed");
     }
 
     @Override
     public int inject(ResourceType resourceType) {
-        //TODO
-        return 0;
+        Map<String, MeasurementDefinition> metricDefinitions = getMetricDefinitionsMap(resourceType);
+
+        AlertDefinition alertDefinition = new AlertDefinition();
+        alertDefinition.setName(getName());
+        alertDefinition.setResourceType(resourceType);
+        alertDefinition.setPriority(AlertPriority.MEDIUM);
+        alertDefinition.setConditionExpression(BooleanExpression.ANY);
+        alertDefinition.setDescription(getDescription());
+        alertDefinition.setRecoveryId(0);
+        alertDefinition.setEnabled(true);
+        alertDefinition.addCondition(getConsumerCountAlertCondition(metricDefinitions));
+
+        int newTemplateId = create(resourceType, alertDefinition);
+        return newTemplateId;
+    }
+
+    private AlertCondition getConsumerCountAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+        AlertCondition alertCondition = new AlertCondition();
+        alertCondition.setName(CONSUMER_COUNT_NAME);
+        alertCondition.setCategory(AlertConditionCategory.CHANGE);
+        if (metricDefinitions.containsKey(CONSUMER_COUNT)) {
+            MeasurementDefinition measurementDefinition = metricDefinitions.get(CONSUMER_COUNT);
+
+            alertCondition.setMeasurementDefinition(measurementDefinition);
+            alertCondition.setName(measurementDefinition.getDisplayName());
+        } else {
+            throw new IllegalArgumentException("MeasurementDefinition " + CONSUMER_COUNT + " not found; " + metricDefinitions.keySet());
+        }
+
+        return alertCondition;
     }
 }

@@ -31,13 +31,13 @@ import org.rhq.core.domain.alert.BooleanExpression;
 import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 
-public class ActiveMQQueueSizeHighTemplate extends InjectedTemplate {
+public class ActiveMQQueueDequeueLowTemplate extends InjectedTemplate {
 
-    private static final String QUEUE_SIZE_NAME = "Queue Size";
-    private static final String QUEUE_SIZE = "QueueSize";
+    private static final String DEQUEUE_COUNT_NAME = "Dequeue Count per Minute";
+    private static final String DEQUEUE_COUNT = "DequeueCount";
 
-    public ActiveMQQueueSizeHighTemplate() {
-        super("ActiveMQ", "Queue", "ActiveMQQueueSizeHigh", "A activemq queue size is high");
+    public ActiveMQQueueDequeueLowTemplate() {
+        super("ActiveMQ", "Queue", "ActiveMQQueueDequeueLow", "A activemq queue de-queue is low");
     }
 
     @Override
@@ -52,25 +52,25 @@ public class ActiveMQQueueSizeHighTemplate extends InjectedTemplate {
         alertDefinition.setDescription(getDescription());
         alertDefinition.setRecoveryId(0);
         alertDefinition.setEnabled(true);
-        alertDefinition.addCondition(getTotalMessageAlertCondition(metricDefinitions));
+        alertDefinition.addCondition(getDequeueCountAlertCondition(metricDefinitions));
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;
     }
 
-    private AlertCondition getTotalMessageAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+    private AlertCondition getDequeueCountAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(QUEUE_SIZE_NAME);
-        alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
-        alertCondition.setComparator(">");
-        alertCondition.setThreshold(1000d);
-        if (metricDefinitions.containsKey(QUEUE_SIZE)) {
-            MeasurementDefinition measurementDefinition = metricDefinitions.get(QUEUE_SIZE);
+        alertCondition.setName(DEQUEUE_COUNT_NAME);
+        alertCondition.setCategory(AlertConditionCategory.BASELINE);
+        alertCondition.setComparator("<");
+        alertCondition.setThreshold(0.5d);
+        if (metricDefinitions.containsKey(DEQUEUE_COUNT)) {
+            MeasurementDefinition measurementDefinition = metricDefinitions.get(DEQUEUE_COUNT);
 
             alertCondition.setMeasurementDefinition(measurementDefinition);
             alertCondition.setName(measurementDefinition.getDisplayName());
         } else {
-            throw new IllegalArgumentException("MeasurementDefinition " + QUEUE_SIZE + " not found; " + metricDefinitions.keySet());
+            throw new IllegalArgumentException("MeasurementDefinition " + DEQUEUE_COUNT + " not found; " + metricDefinitions.keySet());
         }
 
         return alertCondition;
