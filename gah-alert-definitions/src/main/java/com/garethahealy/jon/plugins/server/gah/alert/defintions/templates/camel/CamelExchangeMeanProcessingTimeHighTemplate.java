@@ -19,19 +19,60 @@
  */
 package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.camel;
 
+import java.util.Map;
+
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 
+import org.rhq.core.domain.alert.AlertCondition;
+import org.rhq.core.domain.alert.AlertConditionCategory;
+import org.rhq.core.domain.alert.AlertDefinition;
+import org.rhq.core.domain.alert.AlertPriority;
+import org.rhq.core.domain.alert.BooleanExpression;
+import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 
 public class CamelExchangeMeanProcessingTimeHighTemplate extends InjectedTemplate {
 
+    private static final String MEAN_TIME_NAME = "Mean Processing Time";
+    private static final String MEAN_TIME = "MeanProcessingTime";
+
     public CamelExchangeMeanProcessingTimeHighTemplate() {
-        super("Platforms", "Linux", "LinuxVmNotRunning", "The linux VM is not running");
+        super("Camel", "Camel Route", "CamelExchangeMeanProcessingTimeHigh", "A camel exchange processing time is high");
     }
 
     @Override
     public int inject(ResourceType resourceType) {
-        //TODO
-        return 0;
+        Map<String, MeasurementDefinition> metricDefinitions = getMetricDefinitionsMap(resourceType);
+
+        AlertDefinition alertDefinition = new AlertDefinition();
+        alertDefinition.setName(getName());
+        alertDefinition.setResourceType(resourceType);
+        alertDefinition.setPriority(AlertPriority.MEDIUM);
+        alertDefinition.setConditionExpression(BooleanExpression.ANY);
+        alertDefinition.setDescription(getDescription());
+        alertDefinition.setRecoveryId(0);
+        alertDefinition.setEnabled(true);
+        alertDefinition.addCondition(getMeanTimeAlertCondition(metricDefinitions));
+
+        int newTemplateId = create(resourceType, alertDefinition);
+        return newTemplateId;
+    }
+
+    private AlertCondition getMeanTimeAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+        AlertCondition alertCondition = new AlertCondition();
+        alertCondition.setName(MEAN_TIME_NAME);
+        alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
+        alertCondition.setComparator(">");
+        alertCondition.setThreshold(0.5d);
+        if (metricDefinitions.containsKey(MEAN_TIME)) {
+            MeasurementDefinition measurementDefinition = metricDefinitions.get(MEAN_TIME);
+
+            alertCondition.setMeasurementDefinition(measurementDefinition);
+            alertCondition.setName(measurementDefinition.getDisplayName());
+        } else {
+            throw new IllegalArgumentException("MeasurementDefinition " + MEAN_TIME + " not found; " + metricDefinitions.keySet());
+        }
+
+        return alertCondition;
     }
 }

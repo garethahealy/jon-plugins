@@ -19,19 +19,60 @@
  */
 package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.camel;
 
+import java.util.Map;
+
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 
+import org.rhq.core.domain.alert.AlertCondition;
+import org.rhq.core.domain.alert.AlertConditionCategory;
+import org.rhq.core.domain.alert.AlertDefinition;
+import org.rhq.core.domain.alert.AlertPriority;
+import org.rhq.core.domain.alert.BooleanExpression;
+import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 
 public class CamelExchangeFailuresTemplate extends InjectedTemplate {
 
+    private static final String EXCHANGED_FAILED_NAME = "Exchanges Failed per Minute";
+    private static final String EXCHANGED_FAILED = "ExchangesFailed";
+
     public CamelExchangeFailuresTemplate() {
-        super("Platforms", "Linux", "LinuxVmNotRunning", "The linux VM is not running");
+        super("Camel", "Camel Route", "CamelExchangeFailures", "A camel route has failed exchanges");
     }
 
     @Override
     public int inject(ResourceType resourceType) {
-        //TODO
-        return 0;
+        Map<String, MeasurementDefinition> metricDefinitions = getMetricDefinitionsMap(resourceType);
+
+        AlertDefinition alertDefinition = new AlertDefinition();
+        alertDefinition.setName(getName());
+        alertDefinition.setResourceType(resourceType);
+        alertDefinition.setPriority(AlertPriority.MEDIUM);
+        alertDefinition.setConditionExpression(BooleanExpression.ANY);
+        alertDefinition.setDescription(getDescription());
+        alertDefinition.setRecoveryId(0);
+        alertDefinition.setEnabled(true);
+        alertDefinition.addCondition(getFailuresAlertCondition(metricDefinitions));
+
+        int newTemplateId = create(resourceType, alertDefinition);
+        return newTemplateId;
+    }
+
+    private AlertCondition getFailuresAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+        AlertCondition alertCondition = new AlertCondition();
+        alertCondition.setName(EXCHANGED_FAILED_NAME);
+        alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
+        alertCondition.setComparator(">");
+        alertCondition.setThreshold(0.5d);
+        if (metricDefinitions.containsKey(EXCHANGED_FAILED)) {
+            MeasurementDefinition measurementDefinition = metricDefinitions.get(EXCHANGED_FAILED);
+
+            alertCondition.setMeasurementDefinition(measurementDefinition);
+            alertCondition.setName(measurementDefinition.getDisplayName());
+        } else {
+            throw new IllegalArgumentException("MeasurementDefinition " + EXCHANGED_FAILED + " not found; " + metricDefinitions.keySet());
+        }
+
+        return alertCondition;
     }
 }

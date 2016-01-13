@@ -19,19 +19,60 @@
  */
 package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.jvm;
 
+import java.util.Map;
+
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 
+import org.rhq.core.domain.alert.AlertCondition;
+import org.rhq.core.domain.alert.AlertConditionCategory;
+import org.rhq.core.domain.alert.AlertDefinition;
+import org.rhq.core.domain.alert.AlertPriority;
+import org.rhq.core.domain.alert.BooleanExpression;
+import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 
 public class JVMGarbageCollectionHighTemplate extends InjectedTemplate {
 
+    private static final String COLLECTION_TIME_NAME = "Collection Time per Minute";
+    private static final String COLLECTION_TIME = "CollectionTime";
+
     public JVMGarbageCollectionHighTemplate() {
-        super("Platforms", "Linux", "LinuxVmNotRunning", "The linux VM is not running");
+        super("Fabric", "Garbage Collector", "JVMGarbageCollectionHigh", "Garbage collection is high");
     }
 
     @Override
     public int inject(ResourceType resourceType) {
-        //TODO
-        return 0;
+        Map<String, MeasurementDefinition> metricDefinitions = getMetricDefinitionsMap(resourceType);
+
+        AlertDefinition alertDefinition = new AlertDefinition();
+        alertDefinition.setName(getName());
+        alertDefinition.setResourceType(resourceType);
+        alertDefinition.setPriority(AlertPriority.MEDIUM);
+        alertDefinition.setConditionExpression(BooleanExpression.ANY);
+        alertDefinition.setDescription(getDescription());
+        alertDefinition.setRecoveryId(0);
+        alertDefinition.setEnabled(true);
+        alertDefinition.addCondition(getReceiveErrorAlertCondition(metricDefinitions));
+
+        int newTemplateId = create(resourceType, alertDefinition);
+        return newTemplateId;
+    }
+
+    private AlertCondition getReceiveErrorAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+        AlertCondition alertCondition = new AlertCondition();
+        alertCondition.setName(COLLECTION_TIME_NAME);
+        alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
+        alertCondition.setComparator(">");
+        alertCondition.setThreshold(10000d);
+        if (metricDefinitions.containsKey(COLLECTION_TIME)) {
+            MeasurementDefinition measurementDefinition = metricDefinitions.get(COLLECTION_TIME);
+
+            alertCondition.setMeasurementDefinition(measurementDefinition);
+            alertCondition.setName(measurementDefinition.getDisplayName());
+        } else {
+            throw new IllegalArgumentException("MeasurementDefinition " + COLLECTION_TIME + " not found; " + metricDefinitions.keySet());
+        }
+
+        return alertCondition;
     }
 }

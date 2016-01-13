@@ -19,19 +19,60 @@
  */
 package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.jvm;
 
+import java.util.Map;
+
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 
+import org.rhq.core.domain.alert.AlertCondition;
+import org.rhq.core.domain.alert.AlertConditionCategory;
+import org.rhq.core.domain.alert.AlertDefinition;
+import org.rhq.core.domain.alert.AlertPriority;
+import org.rhq.core.domain.alert.BooleanExpression;
+import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 
 public class JVMDeadlockedThreadsTemplate extends InjectedTemplate {
 
+    private static final String DEADLOCKED_COUNT_NAME = "Deadlocked Thread Count";
+    private static final String DEADLOCKED_COUNT = "DeadLockedThreadCount";
+
     public JVMDeadlockedThreadsTemplate() {
-        super("Platforms", "Linux", "LinuxVmNotRunning", "The linux VM is not running");
+        super("Fabric", "Threading", "JVMDeadlockedThreads", "A deadlocked thread count is high");
     }
 
     @Override
     public int inject(ResourceType resourceType) {
-        //TODO
-        return 0;
+        Map<String, MeasurementDefinition> metricDefinitions = getMetricDefinitionsMap(resourceType);
+
+        AlertDefinition alertDefinition = new AlertDefinition();
+        alertDefinition.setName(getName());
+        alertDefinition.setResourceType(resourceType);
+        alertDefinition.setPriority(AlertPriority.MEDIUM);
+        alertDefinition.setConditionExpression(BooleanExpression.ANY);
+        alertDefinition.setDescription(getDescription());
+        alertDefinition.setRecoveryId(0);
+        alertDefinition.setEnabled(true);
+        alertDefinition.addCondition(getReceiveErrorAlertCondition(metricDefinitions));
+
+        int newTemplateId = create(resourceType, alertDefinition);
+        return newTemplateId;
+    }
+
+    private AlertCondition getReceiveErrorAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+        AlertCondition alertCondition = new AlertCondition();
+        alertCondition.setName(DEADLOCKED_COUNT_NAME);
+        alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
+        alertCondition.setComparator(">");
+        alertCondition.setThreshold(1d);
+        if (metricDefinitions.containsKey(DEADLOCKED_COUNT)) {
+            MeasurementDefinition measurementDefinition = metricDefinitions.get(DEADLOCKED_COUNT);
+
+            alertCondition.setMeasurementDefinition(measurementDefinition);
+            alertCondition.setName(measurementDefinition.getDisplayName());
+        } else {
+            throw new IllegalArgumentException("MeasurementDefinition " + DEADLOCKED_COUNT + " not found; " + metricDefinitions.keySet());
+        }
+
+        return alertCondition;
     }
 }
