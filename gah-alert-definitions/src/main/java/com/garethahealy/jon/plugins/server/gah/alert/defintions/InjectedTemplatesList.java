@@ -33,7 +33,7 @@ import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.active
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.queue.ActiveMQQueueEnqueueHighTemplate;
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.queue.ActiveMQQueueSizeHighTemplate;
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.topic.ActiveMQTopicConsumerCountChangedTemplate;
-import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.topic.ActiveMQTopicDeenqueueHighTemplate;
+import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.topic.ActiveMQTopicDequeueLowTemplate;
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.topic.ActiveMQTopicEnqueueHighTemplate;
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.topic.ActiveMQTopicSizeHighTemplate;
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.camel.CamelContextNotRunningTemplate;
@@ -80,7 +80,7 @@ public final class InjectedTemplatesList {
         temp.add(new ActiveMQQueueEnqueueHighTemplate());
         temp.add(new ActiveMQQueueSizeHighTemplate());
         temp.add(new ActiveMQTopicConsumerCountChangedTemplate());
-        temp.add(new ActiveMQTopicDeenqueueHighTemplate());
+        temp.add(new ActiveMQTopicDequeueLowTemplate());
         temp.add(new ActiveMQTopicEnqueueHighTemplate());
         temp.add(new ActiveMQTopicSizeHighTemplate());
         temp.add(new CamelContextNotRunningTemplate());

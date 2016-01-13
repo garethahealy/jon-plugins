@@ -52,13 +52,13 @@ public class ActiveMQQueueSizeHighTemplate extends InjectedTemplate {
         alertDefinition.setDescription(getDescription());
         alertDefinition.setRecoveryId(0);
         alertDefinition.setEnabled(true);
-        alertDefinition.addCondition(getTotalMessageAlertCondition(metricDefinitions));
+        alertDefinition.addCondition(getQueueSizeAlertCondition(metricDefinitions));
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;
     }
 
-    private AlertCondition getTotalMessageAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+    private AlertCondition getQueueSizeAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
         alertCondition.setName(QUEUE_SIZE_NAME);
         alertCondition.setCategory(AlertConditionCategory.THRESHOLD);

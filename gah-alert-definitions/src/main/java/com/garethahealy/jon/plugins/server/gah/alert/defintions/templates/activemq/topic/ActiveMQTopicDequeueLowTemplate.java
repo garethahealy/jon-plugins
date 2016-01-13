@@ -31,13 +31,13 @@ import org.rhq.core.domain.alert.BooleanExpression;
 import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 
-public class ActiveMQTopicEnqueueHighTemplate extends InjectedTemplate {
+public class ActiveMQTopicDequeueLowTemplate extends InjectedTemplate {
 
-    private static final String ENQUEUE_COUNT_NAME = "Enqueue Count per Minute";
-    private static final String ENQUEUE_COUNT = "EnqueueCount";
+    private static final String DEQUEUE_COUNT_NAME = "Dequeue Count per Minute";
+    private static final String DEQUEUE_COUNT = "DequeueCount";
 
-    public ActiveMQTopicEnqueueHighTemplate() {
-        super("ActiveMQ", "Topic", "ActiveMQTopicEnqueueHigh", "A activemq topic enqueue is high");
+    public ActiveMQTopicDequeueLowTemplate() {
+        super("ActiveMQ", "Topic", "ActiveMQTopicDequeueLow", "A activemq topic de-queue is low");
     }
 
     @Override
@@ -52,25 +52,25 @@ public class ActiveMQTopicEnqueueHighTemplate extends InjectedTemplate {
         alertDefinition.setDescription(getDescription());
         alertDefinition.setRecoveryId(0);
         alertDefinition.setEnabled(true);
-        alertDefinition.addCondition(getEnqueueCountAlertCondition(metricDefinitions));
+        alertDefinition.addCondition(getDequeueCountAlertCondition(metricDefinitions));
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;
     }
 
-    private AlertCondition getEnqueueCountAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+    private AlertCondition getDequeueCountAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(ENQUEUE_COUNT_NAME);
-        alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
-        alertCondition.setComparator(">");
+        alertCondition.setName(DEQUEUE_COUNT_NAME);
+        alertCondition.setCategory(AlertConditionCategory.BASELINE);
+        alertCondition.setComparator("<");
         alertCondition.setThreshold(0.5d);
-        if (metricDefinitions.containsKey(ENQUEUE_COUNT)) {
-            MeasurementDefinition measurementDefinition = metricDefinitions.get(ENQUEUE_COUNT);
+        if (metricDefinitions.containsKey(DEQUEUE_COUNT)) {
+            MeasurementDefinition measurementDefinition = metricDefinitions.get(DEQUEUE_COUNT);
 
             alertCondition.setMeasurementDefinition(measurementDefinition);
             alertCondition.setName(measurementDefinition.getDisplayName());
         } else {
-            throw new IllegalArgumentException("MeasurementDefinition " + ENQUEUE_COUNT + " not found; " + metricDefinitions.keySet());
+            throw new IllegalArgumentException("MeasurementDefinition " + DEQUEUE_COUNT + " not found; " + metricDefinitions.keySet());
         }
 
         return alertCondition;
