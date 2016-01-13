@@ -61,7 +61,7 @@ public class CamelExchangeMeanProcessingTimeHighTemplate extends InjectedTemplat
     private AlertCondition getMeanTimeAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
         alertCondition.setName(MEAN_TIME_NAME);
-        alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
+        alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);
         if (metricDefinitions.containsKey(MEAN_TIME)) {

@@ -19,19 +19,60 @@
  */
 package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.cxf;
 
+import java.util.Map;
+
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 
+import org.rhq.core.domain.alert.AlertCondition;
+import org.rhq.core.domain.alert.AlertConditionCategory;
+import org.rhq.core.domain.alert.AlertDefinition;
+import org.rhq.core.domain.alert.AlertPriority;
+import org.rhq.core.domain.alert.BooleanExpression;
+import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 
 public class CXFClientServiceCounterAverageResponseTimeTemplate extends InjectedTemplate {
 
+    private static final String AVERAGE_RESPONSE_NAME = "Average Response Time";
+    private static final String AVERAGE_RESPONSE = "AvgResponseTime";
+
     public CXFClientServiceCounterAverageResponseTimeTemplate() {
-        super("Platforms", "Linux", "LinuxVmNotRunning", "The linux VM is not running");
+        super("CXF", "ClientServiceCounter", "CXFClientServiceCounterAverageResponseTime", "CXF response time is high");
     }
 
     @Override
     public int inject(ResourceType resourceType) {
-        //TODO
-        return 0;
+        Map<String, MeasurementDefinition> metricDefinitions = getMetricDefinitionsMap(resourceType);
+
+        AlertDefinition alertDefinition = new AlertDefinition();
+        alertDefinition.setName(getName());
+        alertDefinition.setResourceType(resourceType);
+        alertDefinition.setPriority(AlertPriority.MEDIUM);
+        alertDefinition.setConditionExpression(BooleanExpression.ANY);
+        alertDefinition.setDescription(getDescription());
+        alertDefinition.setRecoveryId(0);
+        alertDefinition.setEnabled(true);
+        alertDefinition.addCondition(getAverageResponseAlertCondition(metricDefinitions));
+
+        int newTemplateId = create(resourceType, alertDefinition);
+        return newTemplateId;
+    }
+
+    private AlertCondition getAverageResponseAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+        AlertCondition alertCondition = new AlertCondition();
+        alertCondition.setName(AVERAGE_RESPONSE_NAME);
+        alertCondition.setCategory(AlertConditionCategory.BASELINE);
+        alertCondition.setComparator(">");
+        alertCondition.setThreshold(0.5d);
+        if (metricDefinitions.containsKey(AVERAGE_RESPONSE)) {
+            MeasurementDefinition measurementDefinition = metricDefinitions.get(AVERAGE_RESPONSE);
+
+            alertCondition.setMeasurementDefinition(measurementDefinition);
+            alertCondition.setName(measurementDefinition.getDisplayName());
+        } else {
+            throw new IllegalArgumentException("MeasurementDefinition " + AVERAGE_RESPONSE + " not found; " + metricDefinitions.keySet());
+        }
+
+        return alertCondition;
     }
 }
