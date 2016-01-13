@@ -17,15 +17,15 @@
  * limitations under the License.
  * #L%
  */
-package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq;
+package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.topic;
 
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 
 import org.rhq.core.domain.resource.ResourceType;
 
-public class ActiveMQBrokerTotalMessagesHighTemplate extends InjectedTemplate {
+public class ActiveMQTopicSizeHighTemplate extends InjectedTemplate {
 
-    public ActiveMQBrokerTotalMessagesHighTemplate() {
+    public ActiveMQTopicSizeHighTemplate() {
         super("Platforms", "Linux", "LinuxVmNotRunning", "The linux VM is not running");
     }
 

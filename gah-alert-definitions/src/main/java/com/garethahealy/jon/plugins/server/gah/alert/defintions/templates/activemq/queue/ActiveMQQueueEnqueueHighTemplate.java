@@ -17,15 +17,15 @@
  * limitations under the License.
  * #L%
  */
-package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq;
+package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.queue;
 
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 
 import org.rhq.core.domain.resource.ResourceType;
 
-public class ActiveMQBrokerConnectorNotRunningTemplate extends InjectedTemplate {
+public class ActiveMQQueueEnqueueHighTemplate extends InjectedTemplate {
 
-    public ActiveMQBrokerConnectorNotRunningTemplate() {
+    public ActiveMQQueueEnqueueHighTemplate() {
         super("Platforms", "Linux", "LinuxVmNotRunning", "The linux VM is not running");
     }
 

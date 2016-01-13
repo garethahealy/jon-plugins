@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq;
+package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.activemq.queue;
 
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 

@@ -150,7 +150,7 @@ public class GAHAlertDefinitionServerPluginComponent implements ServerPluginComp
             return result;
         }
 
-        assert 1 == resourceTypes.size() : "Found more than 1 resource type!";
+        assert 1 == resourceTypes.size() : "Found more than 1 resource type for " + injectedAlertDef.getResourceTypeName();
         ResourceType resourceType = resourceTypes.get(0);
 
         AlertDefinitionCriteria adc = new AlertDefinitionCriteria();
@@ -159,7 +159,7 @@ public class GAHAlertDefinitionServerPluginComponent implements ServerPluginComp
 
         List<AlertDefinition> alertDefs = alertDefManager.findAlertDefinitionsByCriteria(subjectManager.getOverlord(), adc);
         if (!alertDefs.isEmpty()) {
-            assert 1 == alertDefs.size() : "Found more than 1 existing alert def!";
+            assert 1 == alertDefs.size() : "Found more than 1 existing alert def for " + injectedAlertDef.getName();
 
             if (!replaceIfExists) {
                 return result;
