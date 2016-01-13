@@ -19,19 +19,60 @@
  */
 package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.filesystem;
 
+import java.util.Map;
+
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 
+import org.rhq.core.domain.alert.AlertCondition;
+import org.rhq.core.domain.alert.AlertConditionCategory;
+import org.rhq.core.domain.alert.AlertDefinition;
+import org.rhq.core.domain.alert.AlertPriority;
+import org.rhq.core.domain.alert.BooleanExpression;
+import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 
 public class FileSystemDiskReadHighTemplate extends InjectedTemplate {
 
+    private static final String DISK_READS_NAME = "Disk Reads per Minute";
+    private static final String DISK_READS = "fileSystemUsage.diskReads";
+
     public FileSystemDiskReadHighTemplate() {
-        super("Platforms", "Linux", "LinuxVmNotRunning", "The linux VM is not running");
+        super("Platforms", "File System", "FileSystemDiskReadHigh", "A file system space has above average reads");
     }
 
     @Override
     public int inject(ResourceType resourceType) {
-        //TODO
-        return 0;
+        Map<String, MeasurementDefinition> metricDefinitions = getMetricDefinitionsMap(resourceType);
+
+        AlertDefinition alertDefinition = new AlertDefinition();
+        alertDefinition.setName(getName());
+        alertDefinition.setResourceType(resourceType);
+        alertDefinition.setPriority(AlertPriority.MEDIUM);
+        alertDefinition.setConditionExpression(BooleanExpression.ANY);
+        alertDefinition.setDescription(getDescription());
+        alertDefinition.setRecoveryId(0);
+        alertDefinition.setEnabled(true);
+        alertDefinition.addCondition(getSysLoadAlertCondition(metricDefinitions));
+
+        int newTemplateId = create(resourceType, alertDefinition);
+        return newTemplateId;
+    }
+
+    private AlertCondition getSysLoadAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+        AlertCondition alertCondition = new AlertCondition();
+        alertCondition.setName(DISK_READS_NAME);
+        alertCondition.setCategory(AlertConditionCategory.BASELINE);
+        alertCondition.setComparator(">");
+        alertCondition.setThreshold(0.5d);
+        if (metricDefinitions.containsKey(DISK_READS)) {
+            MeasurementDefinition measurementDefinition = metricDefinitions.get(DISK_READS);
+
+            alertCondition.setMeasurementDefinition(measurementDefinition);
+            alertCondition.setName(measurementDefinition.getDisplayName());
+        } else {
+            throw new IllegalArgumentException("MeasurementDefinition " + DISK_READS + " not found; " + metricDefinitions.keySet());
+        }
+
+        return alertCondition;
     }
 }

@@ -19,8 +19,6 @@
  */
 package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.cpu;
 
-import java.util.Map;
-
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 
 import org.rhq.core.domain.alert.AlertCondition;
@@ -28,7 +26,6 @@ import org.rhq.core.domain.alert.AlertConditionCategory;
 import org.rhq.core.domain.alert.AlertDefinition;
 import org.rhq.core.domain.alert.AlertPriority;
 import org.rhq.core.domain.alert.BooleanExpression;
-import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 
 public class CPUCoreNotRunningTemplate extends InjectedTemplate {
@@ -44,8 +41,6 @@ public class CPUCoreNotRunningTemplate extends InjectedTemplate {
 
     @Override
     public int inject(ResourceType resourceType) {
-        Map<String, MeasurementDefinition> metricDefinitions = getMetricDefinitionsMap(resourceType);
-
         AlertDefinition alertDefinition = new AlertDefinition();
         alertDefinition.setName(getName());
         alertDefinition.setResourceType(resourceType);
@@ -54,16 +49,16 @@ public class CPUCoreNotRunningTemplate extends InjectedTemplate {
         alertDefinition.setDescription(getDescription());
         alertDefinition.setRecoveryId(0);
         alertDefinition.setEnabled(true);
-        alertDefinition.addCondition(getDoesDownAlertCondition(metricDefinitions));
-        alertDefinition.addCondition(getNotUpAlertCondition(metricDefinitions));
-        alertDefinition.addCondition(getDisabledAlertCondition(metricDefinitions));
-        alertDefinition.addCondition(getUnknownAlertCondition(metricDefinitions));
+        alertDefinition.addCondition(getDoesDownAlertCondition());
+        alertDefinition.addCondition(getNotUpAlertCondition());
+        alertDefinition.addCondition(getDisabledAlertCondition());
+        alertDefinition.addCondition(getUnknownAlertCondition());
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;
     }
 
-    private AlertCondition getDoesDownAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+    private AlertCondition getDoesDownAlertCondition() {
         AlertCondition alertCondition = new AlertCondition();
         alertCondition.setName(DOWN_NAME);
         alertCondition.setCategory(AlertConditionCategory.AVAILABILITY);
@@ -71,7 +66,7 @@ public class CPUCoreNotRunningTemplate extends InjectedTemplate {
         return alertCondition;
     }
 
-    private AlertCondition getNotUpAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+    private AlertCondition getNotUpAlertCondition() {
         AlertCondition alertCondition = new AlertCondition();
         alertCondition.setName(NOT_UP_NAME);
         alertCondition.setCategory(AlertConditionCategory.AVAILABILITY);
@@ -79,7 +74,7 @@ public class CPUCoreNotRunningTemplate extends InjectedTemplate {
         return alertCondition;
     }
 
-    private AlertCondition getDisabledAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+    private AlertCondition getDisabledAlertCondition() {
         AlertCondition alertCondition = new AlertCondition();
         alertCondition.setName(DISABLED_NAME);
         alertCondition.setCategory(AlertConditionCategory.AVAILABILITY);
@@ -87,7 +82,7 @@ public class CPUCoreNotRunningTemplate extends InjectedTemplate {
         return alertCondition;
     }
 
-    private AlertCondition getUnknownAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+    private AlertCondition getUnknownAlertCondition() {
         AlertCondition alertCondition = new AlertCondition();
         alertCondition.setName(UNKNOWN_NAME);
         alertCondition.setCategory(AlertConditionCategory.AVAILABILITY);

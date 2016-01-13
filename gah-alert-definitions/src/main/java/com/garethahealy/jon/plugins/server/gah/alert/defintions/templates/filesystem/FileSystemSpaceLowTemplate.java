@@ -19,19 +19,60 @@
  */
 package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.filesystem;
 
+import java.util.Map;
+
 import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
 
+import org.rhq.core.domain.alert.AlertCondition;
+import org.rhq.core.domain.alert.AlertConditionCategory;
+import org.rhq.core.domain.alert.AlertDefinition;
+import org.rhq.core.domain.alert.AlertPriority;
+import org.rhq.core.domain.alert.BooleanExpression;
+import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 
 public class FileSystemSpaceLowTemplate extends InjectedTemplate {
 
+    private static final String USED_PERC_NAME = "Used Percentage";
+    private static final String USED_PERC = "fileSystemUsage.usePercent";
+
     public FileSystemSpaceLowTemplate() {
-        super("Platforms", "Linux", "LinuxVmNotRunning", "The linux VM is not running");
+        super("Platforms", "File System", "FileSystemSpaceLow", "A file system space is running low");
     }
 
     @Override
     public int inject(ResourceType resourceType) {
-        //TODO
-        return 0;
+        Map<String, MeasurementDefinition> metricDefinitions = getMetricDefinitionsMap(resourceType);
+
+        AlertDefinition alertDefinition = new AlertDefinition();
+        alertDefinition.setName(getName());
+        alertDefinition.setResourceType(resourceType);
+        alertDefinition.setPriority(AlertPriority.MEDIUM);
+        alertDefinition.setConditionExpression(BooleanExpression.ANY);
+        alertDefinition.setDescription(getDescription());
+        alertDefinition.setRecoveryId(0);
+        alertDefinition.setEnabled(true);
+        alertDefinition.addCondition(getSysLoadAlertCondition(metricDefinitions));
+
+        int newTemplateId = create(resourceType, alertDefinition);
+        return newTemplateId;
+    }
+
+    private AlertCondition getSysLoadAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
+        AlertCondition alertCondition = new AlertCondition();
+        alertCondition.setName(USED_PERC_NAME);
+        alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
+        alertCondition.setComparator(">");
+        alertCondition.setThreshold(0.8d);
+        if (metricDefinitions.containsKey(USED_PERC)) {
+            MeasurementDefinition measurementDefinition = metricDefinitions.get(USED_PERC);
+
+            alertCondition.setMeasurementDefinition(measurementDefinition);
+            alertCondition.setName(measurementDefinition.getDisplayName());
+        } else {
+            throw new IllegalArgumentException("MeasurementDefinition " + USED_PERC + " not found; " + metricDefinitions.keySet());
+        }
+
+        return alertCondition;
     }
 }
