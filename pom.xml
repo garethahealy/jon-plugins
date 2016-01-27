@@ -4,15 +4,15 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.garethahealy</groupId>
+        <groupId>com.garethahealy.poms</groupId>
         <artifactId>plugins-parent</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.0.0</version>
         <relativePath/>
     </parent>
     <groupId>com.garethahealy.jon-plugins</groupId>
     <artifactId>jon-plugins-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>GarethHealy :: JBoss ON :: Plugins</name>
 
     <properties>
@@ -35,7 +35,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.garethahealy</groupId>
+                <groupId>com.garethahealy.poms</groupId>
                 <artifactId>commons-bom</artifactId>
                 <version>${commons-bom-version}</version>
                 <type>pom</type>
@@ -68,4 +68,5 @@
             <artifactId>rhq-jmx-plugin</artifactId>
         </dependency>
     </dependencies>
+
 </project>
