@@ -79,6 +79,7 @@ public class LinuxLoadHighTemplate extends InjectedTemplate {
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);
+        alertCondition.setOption(OPTION_STATUS_AVERAGE);
         if (metricDefinitions.containsKey(USER_LOAD)) {
             MeasurementDefinition measurementDefinition = metricDefinitions.get(USER_LOAD);
 

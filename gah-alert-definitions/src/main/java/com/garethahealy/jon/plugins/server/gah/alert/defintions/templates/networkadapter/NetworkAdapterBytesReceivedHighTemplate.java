@@ -61,6 +61,7 @@ public class NetworkAdapterBytesReceivedHighTemplate extends InjectedTemplate {
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);
+        alertCondition.setOption(OPTION_STATUS_AVERAGE);
         if (metricDefinitions.containsKey(BYTES_RECEIVE)) {
             MeasurementDefinition measurementDefinition = metricDefinitions.get(BYTES_RECEIVE);
 

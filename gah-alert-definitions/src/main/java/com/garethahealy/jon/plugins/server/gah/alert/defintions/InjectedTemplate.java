@@ -32,6 +32,11 @@ import org.rhq.enterprise.server.util.LookupUtil;
 
 public class InjectedTemplate {
 
+    public static final String FIELD_PLUGIN_NAME = "plugin";
+    public static final String FIELD_RESOURCE_TYPE_NAME = "type";
+    public static final String FIELD_NAME = "name";
+    public static final String FIELD_DESCRIPTION = "description";
+
     protected static final String OPTION_STATUS_MAXIMUM = "max";
     protected static final String OPTION_STATUS_MINIMUM = "min";
     protected static final String OPTION_STATUS_AVERAGE = "mean";
@@ -63,11 +68,6 @@ public class InjectedTemplate {
     protected static final String RECEIVE_DROPPED = "rxDropped";
     protected static final String TRANSMIT_ERROR = "txErrors";
     protected static final String TRANSMIT_DROPPED = "txDropped";
-
-    public static final String FIELD_PLUGIN_NAME = "plugin";
-    public static final String FIELD_RESOURCE_TYPE_NAME = "type";
-    public static final String FIELD_NAME = "name";
-    public static final String FIELD_DESCRIPTION = "description";
 
     private String pluginName;
     private String resourceTypeName;
@@ -134,19 +134,28 @@ public class InjectedTemplate {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+
+        if (o == null || getClass() != o.getClass()) {
             return false;
+        }
 
         InjectedTemplate that = (InjectedTemplate)o;
 
-        if (pluginName != null ? !pluginName.equals(that.pluginName) : that.pluginName != null)
+        if (pluginName != null ? !pluginName.equals(that.pluginName) : that.pluginName != null) {
             return false;
-        if (resourceTypeName != null ? !resourceTypeName.equals(that.resourceTypeName) : that.resourceTypeName != null)
+        }
+
+        if (resourceTypeName != null ? !resourceTypeName.equals(that.resourceTypeName) : that.resourceTypeName != null) {
             return false;
-        if (name != null ? !name.equals(that.name) : that.name != null)
+        }
+
+        if (name != null ? !name.equals(that.name) : that.name != null) {
             return false;
+        }
+        
         return description != null ? description.equals(that.description) : that.description == null;
     }
 

@@ -61,6 +61,7 @@ public class FileSystemDiskWriteHighTemplate extends InjectedTemplate {
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);
+        alertCondition.setOption(OPTION_STATUS_AVERAGE);
         if (metricDefinitions.containsKey(DISK_WRITES)) {
             MeasurementDefinition measurementDefinition = metricDefinitions.get(DISK_WRITES);
 

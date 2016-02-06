@@ -61,6 +61,7 @@ public class CXFClientServiceCounterAverageResponseTimeTemplate extends Injected
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);
+        alertCondition.setOption(OPTION_STATUS_AVERAGE);
         if (metricDefinitions.containsKey(AVERAGE_RESPONSE)) {
             MeasurementDefinition measurementDefinition = metricDefinitions.get(AVERAGE_RESPONSE);
 
