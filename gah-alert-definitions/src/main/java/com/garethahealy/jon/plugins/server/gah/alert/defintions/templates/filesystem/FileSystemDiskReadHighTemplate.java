@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class FileSystemDiskReadHighTemplate extends InjectedTemplate {
 
-    private static final String DISK_READS_NAME = "Disk Reads per Minute";
-    private static final String DISK_READS = "fileSystemUsage.diskReads";
-
     public FileSystemDiskReadHighTemplate() {
         super("Platforms", "File System", "FileSystemDiskReadHigh", "A file system space has above average reads");
     }
@@ -61,7 +58,6 @@ public class FileSystemDiskReadHighTemplate extends InjectedTemplate {
 
     private AlertCondition getSysLoadAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(DISK_READS_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);

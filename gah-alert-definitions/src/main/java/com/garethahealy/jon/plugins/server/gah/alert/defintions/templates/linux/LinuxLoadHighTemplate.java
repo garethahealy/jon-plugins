@@ -33,11 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class LinuxLoadHighTemplate extends InjectedTemplate {
 
-    private static final String SYS_LOAD_NAME = "System Load";
-    private static final String USER_LOAD_NAME = "User Load";
-    private static final String SYS_LOAD = "CpuPerc.sys";
-    private static final String USER_LOAD = "CpuPerc.user";
-
     public LinuxLoadHighTemplate() {
         super("Platforms", "Linux", "LinuxLoadHigh", "The linux VM has high system and user load.");
     }
@@ -64,7 +59,6 @@ public class LinuxLoadHighTemplate extends InjectedTemplate {
 
     private AlertCondition getSysLoadAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(SYS_LOAD_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);
@@ -82,7 +76,6 @@ public class LinuxLoadHighTemplate extends InjectedTemplate {
 
     private AlertCondition getUserLoadAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(USER_LOAD_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);

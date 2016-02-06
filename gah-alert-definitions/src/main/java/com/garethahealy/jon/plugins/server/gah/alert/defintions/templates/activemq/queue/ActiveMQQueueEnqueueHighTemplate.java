@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class ActiveMQQueueEnqueueHighTemplate extends InjectedTemplate {
 
-    private static final String ENQUEUE_COUNT_NAME = "Enqueue Count per Minute";
-    private static final String ENQUEUE_COUNT = "EnqueueCount";
-
     public ActiveMQQueueEnqueueHighTemplate() {
         super("ActiveMQ", "Queue", "ActiveMQQueueEnqueueHigh", "A activemq queue enqueue is high");
     }
@@ -61,10 +58,9 @@ public class ActiveMQQueueEnqueueHighTemplate extends InjectedTemplate {
 
     private AlertCondition getEnqueueCountAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(ENQUEUE_COUNT_NAME);
         alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
         alertCondition.setComparator(">");
-        alertCondition.setThreshold(0.5d);
+        alertCondition.setThreshold(1000d);
         if (metricDefinitions.containsKey(ENQUEUE_COUNT)) {
             MeasurementDefinition measurementDefinition = metricDefinitions.get(ENQUEUE_COUNT);
 

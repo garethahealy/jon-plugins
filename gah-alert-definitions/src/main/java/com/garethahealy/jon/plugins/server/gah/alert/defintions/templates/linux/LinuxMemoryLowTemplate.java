@@ -33,11 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class LinuxMemoryLowTemplate extends InjectedTemplate {
 
-    private static final String FREE_MEMORY_NAME = "Actual Free Memory";
-    private static final String FREE_SWAP_NAME = "Free Swap Space";
-    private static final String FREE_MEMORY = "Native.MemoryInfo.actualFree";
-    private static final String FREE_SWAP = "Native.SwapInfo.free";
-
     public LinuxMemoryLowTemplate() {
         super("Platforms", "Linux", "LinuxMemoryLow", "The linux VM actual free memory and swap low");
     }
@@ -64,7 +59,6 @@ public class LinuxMemoryLowTemplate extends InjectedTemplate {
 
     private AlertCondition getFreeMemoryAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(FREE_MEMORY_NAME);
         alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(268435456d);
@@ -82,7 +76,6 @@ public class LinuxMemoryLowTemplate extends InjectedTemplate {
 
     private AlertCondition getFreeSwapAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(FREE_SWAP_NAME);
         alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(268435456d);

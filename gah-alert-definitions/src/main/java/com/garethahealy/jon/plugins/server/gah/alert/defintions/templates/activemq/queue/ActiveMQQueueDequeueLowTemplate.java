@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class ActiveMQQueueDequeueLowTemplate extends InjectedTemplate {
 
-    private static final String DEQUEUE_COUNT_NAME = "Dequeue Count per Minute";
-    private static final String DEQUEUE_COUNT = "DequeueCount";
-
     public ActiveMQQueueDequeueLowTemplate() {
         super("ActiveMQ", "Queue", "ActiveMQQueueDequeueLow", "A activemq queue de-queue is low");
     }
@@ -61,10 +58,10 @@ public class ActiveMQQueueDequeueLowTemplate extends InjectedTemplate {
 
     private AlertCondition getDequeueCountAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(DEQUEUE_COUNT_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator("<");
         alertCondition.setThreshold(0.5d);
+        alertCondition.setOption(OPTION_STATUS_AVERAGE);
         if (metricDefinitions.containsKey(DEQUEUE_COUNT)) {
             MeasurementDefinition measurementDefinition = metricDefinitions.get(DEQUEUE_COUNT);
 

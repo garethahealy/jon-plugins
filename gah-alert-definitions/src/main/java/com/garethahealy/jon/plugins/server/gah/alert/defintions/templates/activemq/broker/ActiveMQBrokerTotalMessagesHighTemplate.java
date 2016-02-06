@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class ActiveMQBrokerTotalMessagesHighTemplate extends InjectedTemplate {
 
-    private static final String TOTAL_MESSAGE_NAME = "Total Message Count";
-    private static final String TOTAL_MESSAGE = "TotalMessageCount";
-
     public ActiveMQBrokerTotalMessagesHighTemplate() {
         super("ActiveMQ", "Broker", "ActiveMQBrokerTotalMessagesHigh", "A activemq broker has high message count");
     }
@@ -61,7 +58,6 @@ public class ActiveMQBrokerTotalMessagesHighTemplate extends InjectedTemplate {
 
     private AlertCondition getTotalMessageAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(TOTAL_MESSAGE_NAME);
         alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(1000d);

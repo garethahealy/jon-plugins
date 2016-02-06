@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class CXFClientServiceCounterAverageResponseTimeTemplate extends InjectedTemplate {
 
-    private static final String AVERAGE_RESPONSE_NAME = "Average Response Time";
-    private static final String AVERAGE_RESPONSE = "AvgResponseTime";
-
     public CXFClientServiceCounterAverageResponseTimeTemplate() {
         super("CXF", "ClientServiceCounter", "CXFClientServiceCounterAverageResponseTime", "CXF response time is high");
     }
@@ -61,7 +58,6 @@ public class CXFClientServiceCounterAverageResponseTimeTemplate extends Injected
 
     private AlertCondition getAverageResponseAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(AVERAGE_RESPONSE_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);

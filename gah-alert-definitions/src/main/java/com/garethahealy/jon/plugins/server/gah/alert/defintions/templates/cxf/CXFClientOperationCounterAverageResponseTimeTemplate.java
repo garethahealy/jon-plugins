@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class CXFClientOperationCounterAverageResponseTimeTemplate extends InjectedTemplate {
 
-    private static final String AVERAGE_RESPONSE_NAME = "Average Response Time";
-    private static final String AVERAGE_RESPONSE = "AvgResponseTime";
-
     public CXFClientOperationCounterAverageResponseTimeTemplate() {
         super("CXF", "CamelExchangeMeanProcessingTimeHighTemplate", "CXFClientOperationCounterAverageResponseTime", "CXF response time is high");
     }
@@ -61,7 +58,6 @@ public class CXFClientOperationCounterAverageResponseTimeTemplate extends Inject
 
     private AlertCondition getAverageResponseAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(AVERAGE_RESPONSE_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);

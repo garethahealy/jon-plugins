@@ -33,15 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class NetworkAdapterReceiveTransmitErrorsDroppedHighTemplate extends InjectedTemplate {
 
-    private static final String RECEIVE_ERROR_NAME = "Receive Errors per Minute";
-    private static final String RECEIVE_DROPPED_NAME = "Receive Packets Dropped per Minute";
-    private static final String TRANSMIT_ERROR_NAME = "Transmit Errors per Minute";
-    private static final String TRANSMIT_DROPPED_NAME = "Transmit Packets Dropped per Minute";
-    private static final String RECEIVE_ERROR = "rxErrors";
-    private static final String RECEIVE_DROPPED = "rxDropped";
-    private static final String TRANSMIT_ERROR = "txErrors";
-    private static final String TRANSMIT_DROPPED = "txDropped";
-
     public NetworkAdapterReceiveTransmitErrorsDroppedHighTemplate() {
         super("Platforms", "Network Adapter", "NetworkAdapterReceiveTransmitErrorsDroppedHigh", "A network adapter is receiving/transmitting above average errors/dropped packets");
     }
@@ -70,7 +61,6 @@ public class NetworkAdapterReceiveTransmitErrorsDroppedHighTemplate extends Inje
 
     private AlertCondition getReceiveErrorAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(RECEIVE_ERROR_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);
@@ -88,7 +78,6 @@ public class NetworkAdapterReceiveTransmitErrorsDroppedHighTemplate extends Inje
 
     private AlertCondition getReceiveDroppedAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(RECEIVE_DROPPED_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);
@@ -106,7 +95,6 @@ public class NetworkAdapterReceiveTransmitErrorsDroppedHighTemplate extends Inje
 
     private AlertCondition getTransmittErrorAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(TRANSMIT_ERROR_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);
@@ -124,7 +112,6 @@ public class NetworkAdapterReceiveTransmitErrorsDroppedHighTemplate extends Inje
 
     private AlertCondition getTransmittDroppedAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(TRANSMIT_DROPPED_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);

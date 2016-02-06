@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class CamelExchangeFailuresTemplate extends InjectedTemplate {
 
-    private static final String EXCHANGED_FAILED_NAME = "Exchanges Failed per Minute";
-    private static final String EXCHANGED_FAILED = "ExchangesFailed";
-
     public CamelExchangeFailuresTemplate() {
         super("Camel", "Camel Route", "CamelExchangeFailures", "A camel route has failed exchanges");
     }
@@ -61,10 +58,9 @@ public class CamelExchangeFailuresTemplate extends InjectedTemplate {
 
     private AlertCondition getFailuresAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(EXCHANGED_FAILED_NAME);
         alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
         alertCondition.setComparator(">");
-        alertCondition.setThreshold(0.5d);
+        alertCondition.setThreshold(1d);
         if (metricDefinitions.containsKey(EXCHANGED_FAILED)) {
             MeasurementDefinition measurementDefinition = metricDefinitions.get(EXCHANGED_FAILED);
 

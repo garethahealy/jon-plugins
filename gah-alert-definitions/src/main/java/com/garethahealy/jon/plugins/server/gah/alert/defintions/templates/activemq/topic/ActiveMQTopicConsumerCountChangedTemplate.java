@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class ActiveMQTopicConsumerCountChangedTemplate extends InjectedTemplate {
 
-    private static final String CONSUMER_COUNT_NAME = "Consumer Count";
-    private static final String CONSUMER_COUNT = "ConsumerCount";
-
     public ActiveMQTopicConsumerCountChangedTemplate() {
         super("ActiveMQ", "Topic", "ActiveMQTopicConsumerCountChanged", "A activemq topic consumer count has changed");
     }
@@ -61,7 +58,6 @@ public class ActiveMQTopicConsumerCountChangedTemplate extends InjectedTemplate 
 
     private AlertCondition getConsumerCountAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(CONSUMER_COUNT_NAME);
         alertCondition.setCategory(AlertConditionCategory.CHANGE);
         if (metricDefinitions.containsKey(CONSUMER_COUNT)) {
             MeasurementDefinition measurementDefinition = metricDefinitions.get(CONSUMER_COUNT);

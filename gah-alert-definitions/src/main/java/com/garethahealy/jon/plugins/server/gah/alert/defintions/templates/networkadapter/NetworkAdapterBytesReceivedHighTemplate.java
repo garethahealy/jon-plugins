@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class NetworkAdapterBytesReceivedHighTemplate extends InjectedTemplate {
 
-    private static final String BYTES_RECEIVE_NAME = "Bytes Received per Minute";
-    private static final String BYTES_RECEIVE = "rxBytes";
-
     public NetworkAdapterBytesReceivedHighTemplate() {
         super("Platforms", "Network Adapter", "NetworkAdapterBytesReceivedHigh", "A network adapter is receiving high");
     }
@@ -61,7 +58,6 @@ public class NetworkAdapterBytesReceivedHighTemplate extends InjectedTemplate {
 
     private AlertCondition getBytesReceiveAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(BYTES_RECEIVE_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);

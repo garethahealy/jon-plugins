@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class CamelExchangeMeanProcessingTimeHighTemplate extends InjectedTemplate {
 
-    private static final String MEAN_TIME_NAME = "Mean Processing Time";
-    private static final String MEAN_TIME = "MeanProcessingTime";
-
     public CamelExchangeMeanProcessingTimeHighTemplate() {
         super("Camel", "Camel Route", "CamelExchangeMeanProcessingTimeHigh", "A camel exchange processing time is high");
     }
@@ -61,10 +58,10 @@ public class CamelExchangeMeanProcessingTimeHighTemplate extends InjectedTemplat
 
     private AlertCondition getMeanTimeAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(MEAN_TIME_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);
+        alertCondition.setOption(OPTION_STATUS_AVERAGE);
         if (metricDefinitions.containsKey(MEAN_TIME)) {
             MeasurementDefinition measurementDefinition = metricDefinitions.get(MEAN_TIME);
 

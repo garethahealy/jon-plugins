@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class JVMGarbageCollectionHighTemplate extends InjectedTemplate {
 
-    private static final String COLLECTION_TIME_NAME = "Collection Time per Minute";
-    private static final String COLLECTION_TIME = "CollectionTime";
-
     public JVMGarbageCollectionHighTemplate() {
         super("Fabric", "Garbage Collector", "JVMGarbageCollectionHigh", "Garbage collection is high");
     }
@@ -61,7 +58,6 @@ public class JVMGarbageCollectionHighTemplate extends InjectedTemplate {
 
     private AlertCondition getReceiveErrorAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(COLLECTION_TIME_NAME);
         alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(10000d);

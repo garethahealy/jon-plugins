@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class NetworkAdapterBytesTransmittedHighTemplate extends InjectedTemplate {
 
-    private static final String BYTES_TRANSMIT_NAME = "Bytes Transmitted per Minute";
-    private static final String BYTES_TRANSMIT = "txBytes";
-
     public NetworkAdapterBytesTransmittedHighTemplate() {
         super("Platforms", "Network Adapter", "NetworkAdapterBytesTransmittedHigh", "A network adapter is transmitting high");
     }
@@ -61,7 +58,6 @@ public class NetworkAdapterBytesTransmittedHighTemplate extends InjectedTemplate
 
     private AlertCondition getBytesReceiveAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(BYTES_TRANSMIT_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);

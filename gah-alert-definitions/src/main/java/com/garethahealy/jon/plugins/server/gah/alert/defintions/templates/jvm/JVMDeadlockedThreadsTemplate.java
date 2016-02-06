@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class JVMDeadlockedThreadsTemplate extends InjectedTemplate {
 
-    private static final String DEADLOCKED_COUNT_NAME = "Deadlocked Thread Count";
-    private static final String DEADLOCKED_COUNT = "DeadLockedThreadCount";
-
     public JVMDeadlockedThreadsTemplate() {
         super("Fabric", "Threading", "JVMDeadlockedThreads", "A deadlocked thread count is high");
     }
@@ -61,7 +58,6 @@ public class JVMDeadlockedThreadsTemplate extends InjectedTemplate {
 
     private AlertCondition getReceiveErrorAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(DEADLOCKED_COUNT_NAME);
         alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(1d);

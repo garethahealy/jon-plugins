@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class ActiveMQQueueSizeHighTemplate extends InjectedTemplate {
 
-    private static final String QUEUE_SIZE_NAME = "Queue Size";
-    private static final String QUEUE_SIZE = "QueueSize";
-
     public ActiveMQQueueSizeHighTemplate() {
         super("ActiveMQ", "Queue", "ActiveMQQueueSizeHigh", "A activemq queue size is high");
     }
@@ -61,7 +58,6 @@ public class ActiveMQQueueSizeHighTemplate extends InjectedTemplate {
 
     private AlertCondition getQueueSizeAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(QUEUE_SIZE_NAME);
         alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(1000d);

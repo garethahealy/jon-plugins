@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class FileSystemDiskWriteHighTemplate extends InjectedTemplate {
 
-    private static final String DISK_WRITES_NAME = "Disk Writes per Minute";
-    private static final String DISK_WRITES = "fileSystemUsage.diskWrites";
-
     public FileSystemDiskWriteHighTemplate() {
         super("Platforms", "File System", "FileSystemDiskWriteHigh", "A file system space has above average writes");
     }
@@ -61,7 +58,6 @@ public class FileSystemDiskWriteHighTemplate extends InjectedTemplate {
 
     private AlertCondition getSysLoadAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(DISK_WRITES_NAME);
         alertCondition.setCategory(AlertConditionCategory.BASELINE);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.5d);

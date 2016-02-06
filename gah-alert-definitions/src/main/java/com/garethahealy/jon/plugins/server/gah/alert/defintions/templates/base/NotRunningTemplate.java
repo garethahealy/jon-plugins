@@ -31,11 +31,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class NotRunningTemplate extends InjectedTemplate {
 
-    private static final String DOWN_NAME = "AVAIL_GOES_DOWN";
-    private static final String NOT_UP_NAME = "AVAIL_GOES_NOT_UP";
-    private static final String DISABLED_NAME = "AVAIL_GOES_DISABLED";
-    private static final String UNKNOWN_NAME = "AVAIL_GOES_UNKNOWN";
-
     public NotRunningTemplate(String pluginName, String resourceTypeName, String name, String description) {
         super(pluginName, resourceTypeName, name, description);
     }

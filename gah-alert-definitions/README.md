@@ -11,7 +11,7 @@ If you are not sure what the 'pluginName' or 'resourceTypeName' for the Injected
   - export PGPASSWORD=rhqadmin && psql -U rhqadmin -d rhq
 
   - select ad.name as alert_name, rt.plugin as plugin_name, rt.name as resource_type_name,
-    ac.name as alert_name, ac.type as alert_category, ac.comparator as alert_comparator, ac.threshold as alert_threshold, md.name as measurement_name
+    ac.name as alert_name, ac.type as alert_category, ac.comparator as alert_comparator, ac.threshold as alert_threshold, ac.option_status as baseline, md.name as measurement_name
     from rhq_alert_definition ad
     left join rhq_resource_type rt ON ad.resource_type_id = rt.id
     left join rhq_alert_condition ac ON ad.id = ac.alert_definition_id

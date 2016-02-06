@@ -33,9 +33,6 @@ import org.rhq.core.domain.resource.ResourceType;
 
 public class FileSystemSpaceLowTemplate extends InjectedTemplate {
 
-    private static final String USED_PERC_NAME = "Used Percentage";
-    private static final String USED_PERC = "fileSystemUsage.usePercent";
-
     public FileSystemSpaceLowTemplate() {
         super("Platforms", "File System", "FileSystemSpaceLow", "A file system space is running low");
     }
@@ -61,7 +58,6 @@ public class FileSystemSpaceLowTemplate extends InjectedTemplate {
 
     private AlertCondition getSysLoadAlertCondition(Map<String, MeasurementDefinition> metricDefinitions) {
         AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(USED_PERC_NAME);
         alertCondition.setCategory(AlertConditionCategory.THRESHOLD);
         alertCondition.setComparator(">");
         alertCondition.setThreshold(0.8d);

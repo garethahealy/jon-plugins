@@ -32,6 +32,38 @@ import org.rhq.enterprise.server.util.LookupUtil;
 
 public class InjectedTemplate {
 
+    protected static final String OPTION_STATUS_MAXIMUM = "max";
+    protected static final String OPTION_STATUS_MINIMUM = "min";
+    protected static final String OPTION_STATUS_AVERAGE = "mean";
+
+    protected static final String TOTAL_MESSAGE = "TotalMessageCount";
+    protected static final String DOWN_NAME = "AVAIL_GOES_DOWN";
+    protected static final String NOT_UP_NAME = "AVAIL_GOES_NOT_UP";
+    protected static final String DISABLED_NAME = "AVAIL_GOES_DISABLED";
+    protected static final String UNKNOWN_NAME = "AVAIL_GOES_UNKNOWN";
+    protected static final String CONSUMER_COUNT = "ConsumerCount";
+    protected static final String QUEUE_SIZE = "QueueSize";
+    protected static final String DEQUEUE_COUNT = "DequeueCount";
+    protected static final String ENQUEUE_COUNT = "EnqueueCount";
+    protected static final String EXCHANGED_FAILED = "ExchangesFailed";
+    protected static final String MEAN_TIME = "MeanProcessingTime";
+    protected static final String AVERAGE_RESPONSE = "AvgResponseTime";
+    protected static final String DISK_READS = "fileSystemUsage.diskReads";
+    protected static final String DISK_WRITES = "fileSystemUsage.diskWrites";
+    protected static final String USED_PERC = "fileSystemUsage.usePercent";
+    protected static final String DEADLOCKED_COUNT = "DeadLockedThreadCount";
+    protected static final String COLLECTION_TIME = "CollectionTime";
+    protected static final String SYS_LOAD = "CpuPerc.sys";
+    protected static final String USER_LOAD = "CpuPerc.user";
+    protected static final String FREE_MEMORY = "Native.MemoryInfo.actualFree";
+    protected static final String FREE_SWAP = "Native.SwapInfo.free";
+    protected static final String BYTES_RECEIVE = "rxBytes";
+    protected static final String BYTES_TRANSMIT = "txBytes";
+    protected static final String RECEIVE_ERROR = "rxErrors";
+    protected static final String RECEIVE_DROPPED = "rxDropped";
+    protected static final String TRANSMIT_ERROR = "txErrors";
+    protected static final String TRANSMIT_DROPPED = "txDropped";
+
     public static final String FIELD_PLUGIN_NAME = "plugin";
     public static final String FIELD_RESOURCE_TYPE_NAME = "type";
     public static final String FIELD_NAME = "name";
@@ -93,48 +125,29 @@ public class InjectedTemplate {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((pluginName == null) ? 0 : pluginName.hashCode());
-        result = prime * result + ((resourceTypeName == null) ? 0 : resourceTypeName.hashCode());
+        int result = pluginName != null ? pluginName.hashCode() : 0;
+        result = 31 * result + (resourceTypeName != null ? resourceTypeName.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object o) {
+        if (this == o)
             return true;
-        }
-        if (obj == null) {
+        if (o == null || getClass() != o.getClass())
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+
+        InjectedTemplate that = (InjectedTemplate)o;
+
+        if (pluginName != null ? !pluginName.equals(that.pluginName) : that.pluginName != null)
             return false;
-        }
-        InjectedTemplate other = (InjectedTemplate)obj;
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
+        if (resourceTypeName != null ? !resourceTypeName.equals(that.resourceTypeName) : that.resourceTypeName != null)
             return false;
-        }
-        if (pluginName == null) {
-            if (other.pluginName != null) {
-                return false;
-            }
-        } else if (!pluginName.equals(other.pluginName)) {
+        if (name != null ? !name.equals(that.name) : that.name != null)
             return false;
-        }
-        if (resourceTypeName == null) {
-            if (other.resourceTypeName != null) {
-                return false;
-            }
-        } else if (!resourceTypeName.equals(other.resourceTypeName)) {
-            return false;
-        }
-        return true;
+        return description != null ? description.equals(that.description) : that.description == null;
     }
 
     @Override
