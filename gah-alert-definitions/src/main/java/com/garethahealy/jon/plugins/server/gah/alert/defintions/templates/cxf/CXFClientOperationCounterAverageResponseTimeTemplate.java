@@ -34,7 +34,7 @@ import org.rhq.core.domain.resource.ResourceType;
 public class CXFClientOperationCounterAverageResponseTimeTemplate extends InjectedTemplate {
 
     public CXFClientOperationCounterAverageResponseTimeTemplate() {
-        super("CXF", "CamelExchangeMeanProcessingTimeHighTemplate", "CXFClientOperationCounterAverageResponseTime", "CXF response time is high");
+        super("CXF", "ClientOperationCounter", "CXFClientOperationCounterAverageResponseTime", "CXF response time is high");
     }
 
     @Override

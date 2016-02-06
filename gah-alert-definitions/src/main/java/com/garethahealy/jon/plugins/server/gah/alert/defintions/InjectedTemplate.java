@@ -37,8 +37,6 @@ public class InjectedTemplate {
     public static final String FIELD_NAME = "name";
     public static final String FIELD_DESCRIPTION = "description";
 
-    protected static final String OPTION_STATUS_MAXIMUM = "max";
-    protected static final String OPTION_STATUS_MINIMUM = "min";
     protected static final String OPTION_STATUS_AVERAGE = "mean";
 
     protected static final String TOTAL_MESSAGE = "TotalMessageCount";
