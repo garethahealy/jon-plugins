@@ -53,6 +53,7 @@ public class CXFServerOperationCounterResponseTimeTemplate extends InjectedTempl
         alertDefinition.setRecoveryId(0);
         alertDefinition.setEnabled(true);
         alertDefinition.addCondition(getAverageResponseAlertCondition(metricDefinitions));
+        alertDefinition.setAlertDampening(getNoneAlertDampening());
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;

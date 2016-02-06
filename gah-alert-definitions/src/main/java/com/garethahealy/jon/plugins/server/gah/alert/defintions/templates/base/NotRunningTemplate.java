@@ -23,6 +23,7 @@ import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate
 
 import org.rhq.core.domain.alert.AlertCondition;
 import org.rhq.core.domain.alert.AlertConditionCategory;
+import org.rhq.core.domain.alert.AlertDampening;
 import org.rhq.core.domain.alert.AlertDefinition;
 import org.rhq.core.domain.alert.AlertPriority;
 import org.rhq.core.domain.alert.BooleanExpression;
@@ -53,12 +54,13 @@ public class NotRunningTemplate extends InjectedTemplate {
         alertDefinition.addCondition(getNotUpAlertCondition());
         alertDefinition.addCondition(getDisabledAlertCondition());
         alertDefinition.addCondition(getUnknownAlertCondition());
+        alertDefinition.setAlertDampening(getNoneAlertDampening());
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;
     }
 
-    private AlertCondition getDoesDownAlertCondition() {
+    protected AlertCondition getDoesDownAlertCondition() {
         AlertCondition alertCondition = new AlertCondition();
         alertCondition.setName(DOWN_NAME);
         alertCondition.setCategory(AlertConditionCategory.AVAILABILITY);
@@ -66,7 +68,7 @@ public class NotRunningTemplate extends InjectedTemplate {
         return alertCondition;
     }
 
-    private AlertCondition getNotUpAlertCondition() {
+    protected AlertCondition getNotUpAlertCondition() {
         AlertCondition alertCondition = new AlertCondition();
         alertCondition.setName(NOT_UP_NAME);
         alertCondition.setCategory(AlertConditionCategory.AVAILABILITY);
@@ -74,7 +76,7 @@ public class NotRunningTemplate extends InjectedTemplate {
         return alertCondition;
     }
 
-    private AlertCondition getDisabledAlertCondition() {
+    protected AlertCondition getDisabledAlertCondition() {
         AlertCondition alertCondition = new AlertCondition();
         alertCondition.setName(DISABLED_NAME);
         alertCondition.setCategory(AlertConditionCategory.AVAILABILITY);
@@ -82,7 +84,7 @@ public class NotRunningTemplate extends InjectedTemplate {
         return alertCondition;
     }
 
-    private AlertCondition getUnknownAlertCondition() {
+    protected AlertCondition getUnknownAlertCondition() {
         AlertCondition alertCondition = new AlertCondition();
         alertCondition.setName(UNKNOWN_NAME);
         alertCondition.setCategory(AlertConditionCategory.AVAILABILITY);

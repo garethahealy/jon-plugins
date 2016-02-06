@@ -19,19 +19,14 @@
  */
 package com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.linux;
 
-import com.garethahealy.jon.plugins.server.gah.alert.defintions.InjectedTemplate;
+import com.garethahealy.jon.plugins.server.gah.alert.defintions.templates.base.NotRunningTemplate;
 
-import org.rhq.core.domain.alert.AlertCondition;
-import org.rhq.core.domain.alert.AlertConditionCategory;
 import org.rhq.core.domain.alert.AlertDefinition;
 import org.rhq.core.domain.alert.AlertPriority;
 import org.rhq.core.domain.alert.BooleanExpression;
 import org.rhq.core.domain.resource.ResourceType;
 
-public class LinuxVmNotRunningTemplate extends InjectedTemplate {
-
-    private static final String DOWN_NAME = "AVAIL_GOES_DOWN";
-    private static final String NOT_UP_NAME = "AVAIL_GOES_NOT_UP";
+public class LinuxVmNotRunningTemplate extends NotRunningTemplate {
 
     public LinuxVmNotRunningTemplate() {
         super("Platforms", "Linux", "LinuxVmNotRunning", "The linux VM is not running");
@@ -49,24 +44,9 @@ public class LinuxVmNotRunningTemplate extends InjectedTemplate {
         alertDefinition.setEnabled(true);
         alertDefinition.addCondition(getDoesDownAlertCondition());
         alertDefinition.addCondition(getNotUpAlertCondition());
+        alertDefinition.setAlertDampening(getNoneAlertDampening());
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;
-    }
-
-    private AlertCondition getDoesDownAlertCondition() {
-        AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(DOWN_NAME);
-        alertCondition.setCategory(AlertConditionCategory.AVAILABILITY);
-
-        return alertCondition;
-    }
-
-    private AlertCondition getNotUpAlertCondition() {
-        AlertCondition alertCondition = new AlertCondition();
-        alertCondition.setName(NOT_UP_NAME);
-        alertCondition.setCategory(AlertConditionCategory.AVAILABILITY);
-
-        return alertCondition;
     }
 }

@@ -22,6 +22,7 @@ package com.garethahealy.jon.plugins.server.gah.alert.defintions;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.rhq.core.domain.alert.AlertDampening;
 import org.rhq.core.domain.alert.AlertDefinition;
 import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
@@ -84,6 +85,10 @@ public class InjectedTemplate {
 
         int newTemplateId = alertTemplateManager.createAlertTemplate(subjectManager.getOverlord(), alertDefinition, resourceType.getId());
         return newTemplateId;
+    }
+
+    protected AlertDampening getNoneAlertDampening() {
+        return new AlertDampening(AlertDampening.Category.NONE);
     }
 
     @Override

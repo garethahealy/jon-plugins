@@ -62,6 +62,7 @@ public class NetworkAdapterReceiveTransmitErrorsDroppedHighTemplate extends Inje
         alertDefinition.addCondition(getReceiveDroppedAlertCondition(metricDefinitions));
         alertDefinition.addCondition(getTransmittErrorAlertCondition(metricDefinitions));
         alertDefinition.addCondition(getTransmittDroppedAlertCondition(metricDefinitions));
+        alertDefinition.setAlertDampening(getNoneAlertDampening());
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;

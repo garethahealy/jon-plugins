@@ -53,6 +53,7 @@ public class ActiveMQQueueDequeueLowTemplate extends InjectedTemplate {
         alertDefinition.setRecoveryId(0);
         alertDefinition.setEnabled(true);
         alertDefinition.addCondition(getDequeueCountAlertCondition(metricDefinitions));
+        alertDefinition.setAlertDampening(getNoneAlertDampening());
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;

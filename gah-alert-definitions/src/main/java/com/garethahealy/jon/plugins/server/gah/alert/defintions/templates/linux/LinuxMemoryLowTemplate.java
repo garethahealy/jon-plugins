@@ -56,6 +56,7 @@ public class LinuxMemoryLowTemplate extends InjectedTemplate {
         alertDefinition.setEnabled(true);
         alertDefinition.addCondition(getFreeMemoryAlertCondition(metricDefinitions));
         alertDefinition.addCondition(getFreeSwapAlertCondition(metricDefinitions));
+        alertDefinition.setAlertDampening(getNoneAlertDampening());
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;

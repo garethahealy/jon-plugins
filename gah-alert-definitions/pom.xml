@@ -11,6 +11,7 @@
     </parent>
     <artifactId>gah-alert-definitions</artifactId>
     <packaging>jar</packaging>
+    <version>1.0.1-SNAPSHOT</version>
     <name>GarethHealy :: JBoss ON :: Plugins :: GAH Alert Definitions</name>
 
     <dependencies>

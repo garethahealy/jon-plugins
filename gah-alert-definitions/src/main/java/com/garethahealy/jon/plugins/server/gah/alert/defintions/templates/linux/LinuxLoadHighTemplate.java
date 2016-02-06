@@ -56,6 +56,7 @@ public class LinuxLoadHighTemplate extends InjectedTemplate {
         alertDefinition.setEnabled(true);
         alertDefinition.addCondition(getSysLoadAlertCondition(metricDefinitions));
         alertDefinition.addCondition(getUserLoadAlertCondition(metricDefinitions));
+        alertDefinition.setAlertDampening(getNoneAlertDampening());
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;
