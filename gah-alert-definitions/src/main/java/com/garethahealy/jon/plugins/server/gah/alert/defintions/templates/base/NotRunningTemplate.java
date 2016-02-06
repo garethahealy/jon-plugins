@@ -50,6 +50,7 @@ public class NotRunningTemplate extends InjectedTemplate {
         alertDefinition.addCondition(getDisabledAlertCondition());
         alertDefinition.addCondition(getUnknownAlertCondition());
         alertDefinition.setAlertDampening(getNoneAlertDampening());
+        alertDefinition.addAlertNotification(getDefaultAlertNotification());
 
         int newTemplateId = create(resourceType, alertDefinition);
         return newTemplateId;

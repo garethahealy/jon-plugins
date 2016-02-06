@@ -24,6 +24,9 @@ import java.util.Map;
 
 import org.rhq.core.domain.alert.AlertDampening;
 import org.rhq.core.domain.alert.AlertDefinition;
+import org.rhq.core.domain.alert.notification.AlertNotification;
+import org.rhq.core.domain.configuration.Configuration;
+import org.rhq.core.domain.configuration.RawConfiguration;
 import org.rhq.core.domain.measurement.MeasurementDefinition;
 import org.rhq.core.domain.resource.ResourceType;
 import org.rhq.enterprise.server.alert.AlertTemplateManagerLocal;
@@ -119,6 +122,13 @@ public class InjectedTemplate {
 
     protected AlertDampening getNoneAlertDampening() {
         return new AlertDampening(AlertDampening.Category.NONE);
+    }
+
+    protected AlertNotification getDefaultAlertNotification() {
+        Configuration emailConfig = new Configuration();
+        emailConfig.setSimpleValue("emailAddress", "bob@bob.com");
+        
+        return new AlertNotification("Direct Emails", emailConfig);
     }
 
     @Override
