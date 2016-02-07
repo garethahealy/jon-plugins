@@ -13,44 +13,82 @@
     <packaging>jar</packaging>
     <name>GarethHealy :: JBoss ON :: Plugins :: Apache Commons Pool2</name>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.rhq.maven.plugins</groupId>
-                <artifactId>rhq-agent-plugin-plugin</artifactId>
-                <!-- Tell Maven that this plugin will extend the standard lifecycle and packaging -->
-                <!-- Without this the build fails to recognize the custom packaging -->
-                <extensions>true</extensions>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                        <manifestEntries>
-                            <Maven-Version>${maven-version}</Maven-Version>
-                            <Java-Version>${java.version}</Java-Version>
-                            <Java-Vendor>${java.vendor}</Java-Vendor>
-                            <Os-Name>${os.name}</Os-Name>
-                            <Os-Arch>${os.arch}</Os-Arch>
-                            <Os-Version>${os.version}</Os-Version>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>validate</goal>
-                        </goals>
+    <profiles>
+        <profile>
+            <id>validate</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.rhq.maven.plugins</groupId>
+                        <artifactId>rhq-agent-plugin-plugin</artifactId>
+                        <!-- Tell Maven that this plugin will extend the standard lifecycle and packaging -->
+                        <!-- Without this the build fails to recognize the custom packaging -->
+                        <extensions>true</extensions>
                         <configuration>
-                            <rhqVersion>${rhq-version}</rhqVersion>
+                            <archive>
+                                <manifest>
+                                    <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                </manifest>
+                                <manifestEntries>
+                                    <Maven-Version>${maven-version}</Maven-Version>
+                                    <Java-Version>${java.version}</Java-Version>
+                                    <Java-Vendor>${java.vendor}</Java-Vendor>
+                                    <Os-Name>${os.name}</Os-Name>
+                                    <Os-Arch>${os.arch}</Os-Arch>
+                                    <Os-Version>${os.version}</Os-Version>
+                                </manifestEntries>
+                            </archive>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+                        <executions>
+                            <execution>
+                                <id>validate</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>validate</goal>
+                                </goals>
+                                <configuration>
+                                    <rhqVersion>${rhq-version}</rhqVersion>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>skip-validate</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.rhq.maven.plugins</groupId>
+                        <artifactId>rhq-agent-plugin-plugin</artifactId>
+                        <!-- Tell Maven that this plugin will extend the standard lifecycle and packaging -->
+                        <!-- Without this the build fails to recognize the custom packaging -->
+                        <extensions>true</extensions>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                </manifest>
+                                <manifestEntries>
+                                    <Maven-Version>${maven-version}</Maven-Version>
+                                    <Java-Version>${java.version}</Java-Version>
+                                    <Java-Vendor>${java.vendor}</Java-Vendor>
+                                    <Os-Name>${os.name}</Os-Name>
+                                    <Os-Arch>${os.arch}</Os-Arch>
+                                    <Os-Version>${os.version}</Os-Version>
+                                </manifestEntries>
+                            </archive>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
