@@ -61,6 +61,9 @@
         </profile>
         <profile>
             <id>skip-validate</id>
+            <properties>
+                <license.skipDownloadLicenses>true</license.skipDownloadLicenses>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
