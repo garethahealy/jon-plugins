@@ -6,13 +6,13 @@
     <parent>
         <groupId>com.garethahealy.poms</groupId>
         <artifactId>plugins-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
         <relativePath/>
     </parent>
     <groupId>com.garethahealy.jon-plugins</groupId>
     <artifactId>jon-plugins-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>GarethHealy :: JBoss ON :: Plugins</name>
 
     <properties>

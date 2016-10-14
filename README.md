@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/garethahealy/jon-plugins.svg?branch=master)](https://travis-ci.org/garethahealy/jon-plugins)
+[![Release Version](https://img.shields.io/maven-central/v/com.garethahealy.jon-plugins/jon-plugins-parent.svg?maxAge=2592000)](https://mvnrepository.com/artifact/com.garethahealy.jon-plugins/jon-plugins-parent)
+[![License](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)]()
 
 # jon-plugins
 Collection of JBoss Operations Network (JON) (http://www.redhat.com/en/technologies/jboss-middleware/operations-network) plugins.
