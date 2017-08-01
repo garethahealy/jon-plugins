@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.garethahealy.jon-plugins</groupId>
         <artifactId>jon-plugins-parent</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.1.0</version>
         <relativePath>../</relativePath>
     </parent>
     <artifactId>poolcounter-mbeans</artifactId>
