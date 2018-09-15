@@ -2,6 +2,13 @@
 [![Release Version](https://img.shields.io/maven-central/v/com.garethahealy.jon-plugins/jon-plugins-parent.svg?maxAge=2592000)](https://mvnrepository.com/artifact/com.garethahealy.jon-plugins/jon-plugins-parent)
 [![License](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)]()
 
+# PLEASE READ
+As of December 2015, JON is no longer offers full support, as per:
+- https://access.redhat.com/support/policy/updates/jboss_notes#JBCS_life_cycle_dates
+
+It is recommended that use another monitoing soloution, such as:
+- https://prometheus.io
+
 # jon-plugins
 Collection of JBoss Operations Network (JON) (http://www.redhat.com/en/technologies/jboss-middleware/operations-network) plugins.
 
