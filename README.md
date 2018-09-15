@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)]()
 
 # PLEASE READ
-As of December 2015, JON is no longer offers full support, as per:
+As of December 2015, JON no longer offers full support, as per:
 - https://access.redhat.com/support/policy/updates/jboss_notes#JBCS_life_cycle_dates
 
 It is recommended that use another monitoing soloution, such as:
