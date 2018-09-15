@@ -4,7 +4,7 @@ addons:
   sonarcloud:
     organization: garethahealy-github
     token:
-      secure: "OhtzuUQwsR6FLnIcC9F5L8jiMu6i6qMPdbQXiKsabnyVAPCq8uIZfdLiJFt9BHZ6MHSjX2uvEyukJ6MSDJnO6hcGAE6mJzK4CaLxFYjnJqYPyaHYylmU8nyoN5qbtz14cREim6du/E4P0B5CE9Xixvc2WRKz6TAJDX7lpns/Gf0="
+      secure: "WsdSa1M6GjQ/DSvYCJ9XMFrAYrC3nPxzcXfUeVEB4RUDw0G6OgQlhJ8u6IQiD1wo+wnKck/cGqwcyCriuAorTG3wdW4P6WIAlGhFZgT+rTRG+/mvvNVh51JRfFjvteYbqZYSxIEdbIPlbPgL0GcvGFF+NUhu/X7WB9QCAbfsqhI="
 env:
   global:
   - secure: GjuppkM/Ac8mTEiZQTL55sJzk4zX5tsCMeIvAZjEiNf2+n4edjl43qbgz34hoRxREC1qAF2H1BWO+vdT2n1UCu7ZLuwlg45z2OAFR5+74fd0BMVmG2BGL0Wg/wRLTR3nUrdL2tNZ87jzSVsXRNaTWceoKM361hujVr5zXwWWN0c=
