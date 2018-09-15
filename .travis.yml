@@ -23,7 +23,7 @@ before_script:
 - ./mvnw dependency:go-offline -B
 script:
 - ./mvnw clean install -B -Pskip-validate
-- ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -B
+- ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -B -Pskip-validate
 deploy:
   provider: script
   script: bash .travis/deploy.sh
